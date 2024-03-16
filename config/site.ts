@@ -1,13 +1,14 @@
 import { SiteConfig } from 'types'
 
 export const siteConfig: SiteConfig = {
-  title: 'How Much Water Should You Drink Daily?',
-  description: 'Calculate Your Optimal Daily Hydration Needs in Seconds',
-  siteName: 'Water a Day',
+  title: 'Forecasting Sunshine and Showers for You',
+  description:
+    'Tomorrow’s Forecast, Today’s Advantage - Plan Your Day Right, Come Rain or Shine',
+  siteName: 'Will It Rain Tomorrow',
   url: new URL(`${process.env.NEXT_PUBLIC_BASE_URL}`),
   openGraph: {
     image: '/images/og-default.png',
-    imageAlt: 'Banner for wateraday.com',
+    imageAlt: 'Banner for willitraintomorrow.com',
     width: '1200',
     height: '630',
   },

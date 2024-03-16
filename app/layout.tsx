@@ -46,9 +46,9 @@ export const metadata: Metadata = {
     type: 'website',
   },
   icons: {
-    icon: '/images/favicon-32x32.png',
-    shortcut: '/images/apple-touch-icon.png',
-    apple: '/images/apple-touch-icon.png',
+    icon: '/icons/favicon-32x32.png',
+    shortcut: '/icons/apple-touch-icon.png',
+    apple: '/icons/apple-touch-icon.png',
   },
   twitter: {
     card: 'summary_large_image',
@@ -88,7 +88,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="bg-background/55 flex min-h-screen flex-col font-sans"
+        className="flex min-h-screen flex-col bg-background/55 font-sans"
         suppressHydrationWarning
       >
         {children}

@@ -2,22 +2,22 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'WaterADay',
-    short_name: 'WaterADay',
+    name: 'Will It Rain Tomorrow',
+    short_name: 'WillItRainTomorrow',
     description:
-      "Calculate Your Optimal Daily Hydration Needs in Seconds",
+      'Tomorrow’s Forecast, Today’s Advantage - Plan Your Day Right, Come Rain or Shine',
     start_url: '/',
     display: 'standalone',
     background_color: '#fff',
     theme_color: '#fff',
     icons: [
       {
-        src: '/images/android-chrome-192x192.png',
+        src: '/icons/android-chrome-192x192.png',
         sizes: '192x192',
         type: 'image/png',
       },
       {
-        src: '/images/android-chrome-512x512.png',
+        src: '/icons/android-chrome-512x512.png',
         sizes: '512x512',
         type: 'image/png',
       },
