@@ -60,43 +60,14 @@ export type MarketingConfig = {
   mainNav: MainNavItem[]
 }
 
-export type Product = {
-  id: string
-  name: string
-  brand: string
-  brandSlug: string
-  category: string[]
-  categorySlugs: string[]
-  ageGroups: string[]
-  ageGroupSlugs: string[]
-  tag: string[]
-  tagSlugs: string[]
-  price: number
-  url: string
-  isAffiliate?: boolean
-  image: string
+export type Currency = {
+  name: string;
+  symbol: string;
 }
 
-export type Brand = {
-  id: string
-  name: string
-  slug: string
-}
-
-export type Category = {
-  id: string
-  name: string
-  slug: string
-}
-
-export type AgeGroup = {
-  id: string
-  name: string
-  slug: string
-}
-
-export type Tag = {
-  id: string
-  name: string
-  slug: string
+export type Country = {
+  cca2: string;
+  currencies: Record<string, Currency | undefined>;
+  languages: Record<string, string | undefined>;
+  flag: string;
 }

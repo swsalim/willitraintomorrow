@@ -1,4 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors')
 
 const config = {
   content: [
@@ -8,6 +8,14 @@ const config = {
     './helpers/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      white: colors.white,
+      rose: colors.rose,
+      red: colors.red,
+      gray: colors.stone,
+    },
     container: {
       center: true,
       padding: '2rem',
@@ -68,45 +76,45 @@ const config = {
       },
       DEFAULT: {
         css: {
-          '--tw-prose-body': theme('colors.zinc.600'),
+          '--tw-prose-body': theme('colors.gray.600'),
           '--tw-prose-headings': theme('colors.foreground / 1'),
           '--tw-prose-links': theme('colors.rose.500'),
           '--tw-prose-links-hover': theme('colors.rose.600'),
           '--tw-prose-underline': theme('colors.rose.500 / 0.2'),
           '--tw-prose-underline-hover': theme('colors.rose.500'),
-          '--tw-prose-bold': theme('colors.zinc.900'),
-          '--tw-prose-counters': theme('colors.zinc.900'),
-          '--tw-prose-bullets': theme('colors.zinc.900'),
-          '--tw-prose-hr': theme('colors.zinc.100'),
-          '--tw-prose-quote-borders': theme('colors.zinc.200'),
-          '--tw-prose-captions': theme('colors.zinc.400'),
-          '--tw-prose-code': theme('colors.zinc.700'),
-          '--tw-prose-code-bg': theme('colors.zinc.300 / 0.2'),
-          '--tw-prose-pre-code': theme('colors.zinc.100'),
-          '--tw-prose-pre-bg': theme('colors.zinc.900'),
+          '--tw-prose-bold': theme('colors.gray.900'),
+          '--tw-prose-counters': theme('colors.gray.900'),
+          '--tw-prose-bullets': theme('colors.gray.900'),
+          '--tw-prose-hr': theme('colors.gray.100'),
+          '--tw-prose-quote-borders': theme('colors.gray.200'),
+          '--tw-prose-captions': theme('colors.gray.400'),
+          '--tw-prose-code': theme('colors.gray.700'),
+          '--tw-prose-code-bg': theme('colors.gray.300 / 0.2'),
+          '--tw-prose-pre-code': theme('colors.gray.100'),
+          '--tw-prose-pre-bg': theme('colors.gray.900'),
           '--tw-prose-pre-border': 'transparent',
-          '--tw-prose-th-borders': theme('colors.zinc.200'),
-          '--tw-prose-td-borders': theme('colors.zinc.100'),
+          '--tw-prose-th-borders': theme('colors.gray.200'),
+          '--tw-prose-td-borders': theme('colors.gray.100'),
 
-          '--tw-prose-invert-body': theme('colors.zinc.400'),
-          '--tw-prose-invert-headings': theme('colors.zinc.200'),
+          '--tw-prose-invert-body': theme('colors.gray.400'),
+          '--tw-prose-invert-headings': theme('colors.gray.200'),
           '--tw-prose-invert-links': theme('colors.rose.400'),
           '--tw-prose-invert-links-hover': theme('colors.rose.400'),
           '--tw-prose-invert-underline': theme('colors.rose.400 / 0.3'),
           '--tw-prose-invert-underline-hover': theme('colors.rose.400'),
-          '--tw-prose-invert-bold': theme('colors.zinc.200'),
-          '--tw-prose-invert-counters': theme('colors.zinc.200'),
-          '--tw-prose-invert-bullets': theme('colors.zinc.200'),
-          '--tw-prose-invert-hr': theme('colors.zinc.700 / 0.4'),
-          '--tw-prose-invert-quote-borders': theme('colors.zinc.500'),
-          '--tw-prose-invert-captions': theme('colors.zinc.500'),
-          '--tw-prose-invert-code': theme('colors.zinc.300'),
-          '--tw-prose-invert-code-bg': theme('colors.zinc.200 / 0.05'),
-          '--tw-prose-invert-pre-code': theme('colors.zinc.100'),
+          '--tw-prose-invert-bold': theme('colors.gray.200'),
+          '--tw-prose-invert-counters': theme('colors.gray.200'),
+          '--tw-prose-invert-bullets': theme('colors.gray.200'),
+          '--tw-prose-invert-hr': theme('colors.gray.700 / 0.4'),
+          '--tw-prose-invert-quote-borders': theme('colors.gray.500'),
+          '--tw-prose-invert-captions': theme('colors.gray.500'),
+          '--tw-prose-invert-code': theme('colors.gray.300'),
+          '--tw-prose-invert-code-bg': theme('colors.gray.200 / 0.05'),
+          '--tw-prose-invert-pre-code': theme('colors.gray.100'),
           '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 0.4)',
-          '--tw-prose-invert-pre-border': theme('colors.zinc.200 / 0.1'),
-          '--tw-prose-invert-th-borders': theme('colors.zinc.700'),
-          '--tw-prose-invert-td-borders': theme('colors.zinc.800'),
+          '--tw-prose-invert-pre-border': theme('colors.gray.200 / 0.1'),
+          '--tw-prose-invert-th-borders': theme('colors.gray.700'),
+          '--tw-prose-invert-td-borders': theme('colors.gray.800'),
 
           // Base
           color: 'var(--tw-prose-body)',
@@ -116,9 +124,9 @@ const config = {
             marginBottom: theme('spacing.10'),
           },
           p: {
-            fontSize: theme('fontSize.lg')[0],
-            marginTop: theme('spacing.2'),
-            marginBottom: theme('spacing.2'),
+            fontSize: theme('fontSize.base')[0],
+            marginTop: theme('spacing.4'),
+            marginBottom: theme('spacing.4'),
 
             '@screen sm': {
               marginTop: theme('spacing.4'),
@@ -137,15 +145,16 @@ const config = {
           },
           h2: {
             fontFamily: theme('fontFamily.heading'),
-            lineHeight: theme('lineHeight.7'),
+            lineHeight: theme('lineHeight.10'),
             fontSize: theme('fontSize.3xl')[0],
-            lineHeight: theme('lineHeight.9'),
             marginTop: theme('spacing.8'),
-            marginBottom: theme('spacing.4'),
+            marginBottom: theme('spacing.6'),
 
             '@screen md': {
+              lineHeight: theme('lineHeight.10'),
+              fontSize: theme('fontSize.4xl')[0],
               marginTop: theme('spacing.12'),
-              marginBottom: theme('spacing.4'),
+              marginBottom: theme('spacing.8'),
             },
           },
           h3: {
@@ -200,7 +209,11 @@ const config = {
             marginTop: 0,
           },
           'p + ul, p + ol': {
-            marginTop: `-${theme('spacing.4')}`,
+            marginTop: 0,
+
+            '@screen md': {
+              marginTop: `-${theme('spacing.2')}`,
+            },
           },
 
           // Inline elements
@@ -220,7 +233,7 @@ const config = {
           },
           strong: {
             color: 'var(--tw-prose-bold)',
-            fontWeight: theme('fontWeight.semibold'),
+            fontWeight: theme('fontWeight.bold'),
           },
           code: {
             display: 'inline-block',
@@ -349,13 +362,13 @@ const config = {
           'thead th:not(:last-child)': {
             paddingRight: theme('spacing.2'),
           },
-          'tbody tr': {
-            borderBottomWidth: '1px',
-            borderBottomColor: 'var(--tw-prose-td-borders)',
-          },
-          'tbody tr:last-child': {
-            borderBottomWidth: 0,
-          },
+          // 'tbody tr': {
+          //   borderBottomWidth: '1px',
+          //   borderBottomColor: 'var(--tw-prose-td-borders)',
+          // },
+          // 'tbody tr:last-child': {
+          //   borderBottomWidth: 0,
+          // },
           'tbody td': {
             verticalAlign: 'baseline',
           },
