@@ -9,6 +9,7 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: 'stats.wateraday.com', port: '' },
       { protocol: 'https', hostname: 'ik.imagekit.io', port: '' },
+      { protocol: 'https', hostname: 'cdn.weatherapi.com', port: '' },
     ],
     formats: ['image/avif', 'image/webp'],
   },

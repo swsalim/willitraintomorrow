@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 import { siteConfig } from '@/config/site'
+import { ForecastInfo } from '@/components/ForecastInfo'
 import ImageKit from '@/components/ImageKit'
-import { LocationInfo } from '@/components/LocationInfo'
 
 interface searchParamsProps {
   searchParams: {
@@ -17,14 +17,14 @@ export const metadata: Metadata = {
 }
 
 export default async function Home({
-  searchParams: { country, city, languages },
+  searchParams: { country, city },
 }: searchParamsProps) {
   return (
     <div className="container grid place-content-center">
       <div className="mb-4 size-20 drop-shadow-md">
         <ImageKit src="logo-circle.png" alt="Will It Rain Tomorrow?" />
       </div>
-      <LocationInfo country={country} city={city} languages={languages} />
+      <ForecastInfo country={country} city={city} />
     </div>
   )
 }
