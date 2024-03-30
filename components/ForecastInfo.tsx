@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { TomorrowWeather } from '@/types'
 
 interface forecastProp {
   country: string
@@ -9,7 +10,7 @@ interface forecastProp {
 }
 
 export function ForecastInfo({ country, city }: forecastProp) {
-  const [forecastData, setForecastData] = useState(null)
+  const [forecastData, setForecastData] = useState<TomorrowWeather | null>(null)
   const [tomorrowDate, setTomorrowDate] = useState<string>('')
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export function ForecastInfo({ country, city }: forecastProp) {
 
         if (data.success) {
           console.log("Tomorrow's Weather:", data.tomorrowWeather)
-          setForecastData(data)
+          setForecastData(data.tomorrowWeather)
 
           const date = new Date(data.tomorrowWeather.date)
           const formattedDate = new Intl.DateTimeFormat('en-US', {
@@ -56,19 +57,19 @@ export function ForecastInfo({ country, city }: forecastProp) {
           <div className="text-xl">
             Chance of Rain:{' '}
             <span className="font-semibold">
-              {forecastData.tomorrowWeather.day.daily_chance_of_rain}%
+              {forecastData.day.daily_chance_of_rain}%
             </span>
           </div>
           <div className="relative">
             <Image
-              src={`https:${forecastData?.tomorrowWeather?.day.condition.icon}`}
+              src={`https:${forecastData.day.condition.icon}`}
               alt={`Tomorrow weather forecast for ${city}, ${country}`}
               width={70}
               height={70}
               unoptimized={false}
             />
             <div className="text-lg font-semibold">
-              {forecastData.tomorrowWeather?.day.condition.text}
+              {forecastData.day.condition.text}
             </div>
           </div>
         </>
