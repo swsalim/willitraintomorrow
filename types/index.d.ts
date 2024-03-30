@@ -65,6 +65,11 @@ export type Currency = {
   symbol: string
 }
 
+export type City = {
+  name: string
+  country: string
+}
+
 export type Country = {
   cca2: string
   currencies: Record<string, Currency | undefined>

@@ -13,6 +13,15 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function slugify(text: string): string {
+  return text
+    .toLowerCase() // Convert to lowercase
+    .trim() // Trim whitespace from both ends
+    .replace(/[^a-z0-9 -]/g, '') // Remove all non-word chars
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(/-+/g, '-') // Replace multiple - with single -
+}
+
 /**
  * Formats a given date into a string representation using the Intl.DateTimeFormat.
  * The resulting string includes the full month name, two-digit day, and full year.

@@ -45,7 +45,7 @@ export function ForecastInfo({ country, city }: forecastProp) {
 
   return (
     <div className="space-y-4">
-      <h1 className="mb-8 font-heading text-5xl capitalize">
+      <h1 className="mb-8 font-heading text-4xl font-black capitalize md:text-7xl">
         Tomorrow's Weather Forecast
       </h1>
       <div className="text-xl font-medium">

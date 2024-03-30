@@ -1,17 +1,23 @@
 import type { Metadata } from 'next'
-import localFont from 'next/font/local'
+import { DM_Sans, Playfair_Display } from 'next/font/google'
 import Image from 'next/image'
 import Script from 'next/script'
-import { GeistSans } from 'geist/font/sans'
 
 import { siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
 
 import '@/styles/globals.css'
 
-const fontHeading = localFont({
-  src: '../assets/fonts/CalSans-SemiBold.woff2',
+const fontHeading = Playfair_Display({
+  subsets: ['latin'],
+  display: 'swap',
   variable: '--font-heading',
+})
+
+const fontBody = DM_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-body',
 })
 
 export const metadata: Metadata = {
@@ -70,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn('antialiased', GeistSans.variable, fontHeading.variable)}
+      className={cn('antialiased', fontBody.variable, fontHeading.variable)}
     >
       <head>
         <link rel="preconnect" href="//ik.imagekit.io" />
@@ -88,7 +94,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="flex min-h-screen flex-col bg-background/55 font-sans"
+        className="bg-amber-100 flex min-h-screen flex-col font-sans"
         suppressHydrationWarning
       >
         {children}

@@ -13,6 +13,7 @@ const config = {
       current: 'currentColor',
       white: colors.white,
       rose: colors.rose,
+      amber: colors.amber,
       red: colors.red,
       gray: colors.stone,
     },
@@ -34,7 +35,7 @@ const config = {
         reveal: 'reveal 0.7s ease-in-out',
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)'],
+        sans: ['var(--font-body)'],
         heading: ['var(--font-heading)'],
       },
       keyframes: {
