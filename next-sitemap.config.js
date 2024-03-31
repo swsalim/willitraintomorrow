@@ -16,7 +16,7 @@ const exclude = [
 ]
 
 const config = {
-  siteUrl: 'https://www.wateraday.com/',
+  siteUrl: 'https://www.willitraintomorrow.com/',
   generateRobotsTxt: true, // (optional)
   generateIndexSitemap: true,
   sitemapSize: 7000,

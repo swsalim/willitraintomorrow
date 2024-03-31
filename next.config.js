@@ -7,7 +7,7 @@ const nextConfig = {
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
-      { protocol: 'https', hostname: 'stats.wateraday.com', port: '' },
+      { protocol: 'https', hostname: 'stats.willitraintomorrow.com', port: '' },
       { protocol: 'https', hostname: 'ik.imagekit.io', port: '' },
       { protocol: 'https', hostname: 'cdn.weatherapi.com', port: '' },
     ],
