@@ -39,16 +39,16 @@ export async function GET(req: NextRequest) {
     return new ImageResponse(
       (
         <div
-          tw="h-full w-full flex items-center justify-center bg-stone-100"
+          tw="h-full w-full flex items-center justify-center bg-gray-100"
           style={{ backgroundImage: `url(${imageData})` }}
         >
           <div tw="flex items-center justify-center h-full">
             <div tw="flex flex-col justify-center items-center w-full h-full p-20">
               <div tw="flex flex-col items-center">
-                <h1 tw="text-7xl text-stone-900 font-bold text-center mb-0 leading-tight text-[#1F3C4A] capitalize">
+                <h1 tw="text-7xl text-gray-900 font-bold text-center mb-0 leading-tight text-[#1F3C4A] capitalize">
                   {title}
                 </h1>
-                <p tw="text-stone-700 font-semibold capitalize mt-4 text-xl text-center text-[#1F3C4A]">
+                <p tw="text-gray-700 font-semibold capitalize mt-4 text-xl text-center text-[#1F3C4A]">
                   willitraintomorrow.com
                 </p>
               </div>

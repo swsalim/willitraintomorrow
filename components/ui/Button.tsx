@@ -20,11 +20,11 @@ const buttonVariants = cva(
         primary:
           'border border-solid border-transparent bg-blue-600 text-white hover:bg-blue-800 hover:text-white focus:border-blue-800 focus:outline-none active:bg-blue-800',
         secondary:
-          'border border-solid border-zinc-300 bg-white text-stone-500 hover:border-zinc-700 hover:text-stone-800 focus:border-zinc-700 active:border-zinc-700 active:bg-zinc-50 active:text-stone-800',
+          'border border-solid border-zinc-300 bg-white text-gray-500 hover:border-zinc-700 hover:text-gray-800 focus:border-zinc-700 active:border-zinc-700 active:bg-zinc-50 active:text-gray-800',
         outline:
-          'border border-zinc-300/50 bg-white text-stone-500 hover:border-zinc-300 hover:bg-zinc-100 hover:text-stone-700 focus:border-blue-300 active:bg-zinc-100 active:text-stone-700',
+          'border border-zinc-300/50 bg-white text-gray-500 hover:border-zinc-300 hover:bg-zinc-100 hover:text-gray-700 focus:border-blue-300 active:bg-zinc-100 active:text-gray-700',
         ghost:
-          'bg-transparent text-stone-700 hover:bg-zinc-100 hover:text-stone-700 border-transparent border-solid border-[1px] focus:border-amber-300 active:bg-amber-100 active:text-amber-700',
+          'bg-transparent text-gray-700 hover:bg-zinc-100 hover:text-gray-700 border-transparent border-solid border-[1px] focus:border-amber-300 active:bg-amber-100 active:text-amber-700',
         danger:
           'border border-solid border-transparent bg-red-600 text-white hover:bg-red-800 hover:text-white focus:border-red-800 focus:outline-none active:bg-red-800',
       },

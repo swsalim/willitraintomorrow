@@ -1,3 +1,10 @@
+const redirectList = [
+  {
+    source: '/get/simpleanalytics',
+    destination: 'https://referral.simpleanalytics.com/yuyu',
+  },
+]
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -17,6 +24,14 @@ const nextConfig = {
     fetches: {
       fullUrl: true,
     },
+  },
+  async redirects() {
+    return redirectList.map(({ source, destination }) => ({
+      source,
+      destination,
+      permanent: true,
+      statusCode: 301,
+    }))
   },
   webpack: (config) => {
     config.module.rules.push({

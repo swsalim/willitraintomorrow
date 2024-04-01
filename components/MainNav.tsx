@@ -52,7 +52,7 @@ export function MainNav({ items }: MainNavProps) {
           }}
         >
           <Logo />
-          <span className="hidden font-heading tracking-wide text-stone-900 sm:inline-block">
+          <span className="hidden font-heading tracking-wide text-gray-900 sm:inline-block">
             {siteConfig.siteName}
           </span>
         </motion.div>
@@ -64,10 +64,10 @@ export function MainNav({ items }: MainNavProps) {
               key={index}
               href={item.disabled ? '#' : item.href}
               className={cn(
-                'relative px-4 py-2 font-heading text-base tracking-wide transition-colors hover:text-stone-900/80 sm:text-base',
+                'relative px-4 py-2 font-heading text-base tracking-wide transition-colors hover:text-gray-900/80 sm:text-base',
                 item.href.startsWith(`/${segment}`)
-                  ? 'text-stone-900'
-                  : 'text-stone-900/70',
+                  ? 'text-gray-900'
+                  : 'text-gray-900/70',
                 item.disabled && 'cursor-not-allowed opacity-80'
               )}
               onMouseEnter={() => setHoveredIndex(index)}
@@ -76,7 +76,7 @@ export function MainNav({ items }: MainNavProps) {
               <AnimatePresence>
                 {hoveredIndex === index && (
                   <motion.span
-                    className="absolute inset-0 rounded-lg bg-slate-100"
+                    className="bg-slate-100 absolute inset-0 rounded-lg"
                     layoutId="hoverBackgroundID"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1, transition: { duration: 0.15 } }}
