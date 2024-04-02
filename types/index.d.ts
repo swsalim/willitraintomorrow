@@ -54,6 +54,10 @@ export type SiteConfig = {
     height: string
   }
   creator: string
+  author: {
+    name: string
+    url: string
+  }
 }
 
 export type MarketingConfig = {

@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import { DM_Sans, Playfair_Display } from 'next/font/google'
 import Image from 'next/image'
 import Script from 'next/script'
-
-import { siteConfig } from '@/config/site'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils'
 
 import '@/styles/globals.css'
+
+import { constructMetadata } from '@/utils'
 
 const fontHeading = Playfair_Display({
   subsets: ['latin'],
@@ -20,53 +20,55 @@ const fontBody = DM_Sans({
   variable: '--font-body',
 })
 
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.title,
-    template: `%s · ${siteConfig.siteName}`,
-  },
-  description: siteConfig.description,
-  metadataBase: siteConfig.url,
-  alternates: {
-    canonical: '/',
-  },
-  authors: [
-    {
-      name: 'Yuyu',
-      url: 'https://www.yuurrific.com',
-    },
-  ],
-  openGraph: {
-    title: siteConfig.title,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    images: [
-      {
-        url: siteConfig.openGraph.image,
-        width: siteConfig.openGraph.width,
-        height: siteConfig.openGraph.height,
-        alt: siteConfig.openGraph.imageAlt,
-      },
-    ],
-    locale: 'en_US',
-    type: 'website',
-  },
-  icons: {
-    icon: '/icons/favicon-32x32.png',
-    shortcut: '/icons/apple-touch-icon.png',
-    apple: '/icons/apple-touch-icon.png',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: siteConfig.title,
-    description: siteConfig.description,
-    creator: siteConfig.creator,
-    images: [siteConfig.openGraph.image],
-  },
-  robots: {
-    index: true,
-  },
-}
+// export const metadata: Metadata = {
+//   title: {
+//     default: siteConfig.title,
+//     template: `%s · ${siteConfig.siteName}`,
+//   },
+//   description: siteConfig.description,
+//   metadataBase: siteConfig.url,
+//   alternates: {
+//     canonical: '/',
+//   },
+//   authors: [
+//     {
+//       name: siteConfig.author.name,
+//       url: siteConfig.author.url,
+//     },
+//   ],
+//   openGraph: {
+//     title: siteConfig.title,
+//     description: siteConfig.description,
+//     url: siteConfig.url,
+//     images: [
+//       {
+//         url: siteConfig.openGraph.image,
+//         width: siteConfig.openGraph.width,
+//         height: siteConfig.openGraph.height,
+//         alt: siteConfig.openGraph.imageAlt,
+//       },
+//     ],
+//     locale: 'en_US',
+//     type: 'website',
+//   },
+//   icons: {
+//     icon: '/icons/favicon-32x32.png',
+//     shortcut: '/icons/apple-touch-icon.png',
+//     apple: '/icons/apple-touch-icon.png',
+//   },
+//   twitter: {
+//     card: 'summary_large_image',
+//     title: siteConfig.title,
+//     description: siteConfig.description,
+//     creator: siteConfig.creator,
+//     images: [siteConfig.openGraph.image],
+//   },
+//   robots: {
+//     index: true,
+//   },
+// }
+
+export const metadata: Metadata = constructMetadata()
 
 export default function RootLayout({
   children,

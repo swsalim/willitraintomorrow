@@ -1,29 +1,57 @@
-import type { Metadata } from 'next'
+// https://github.com/dubinc/dub/blob/main/apps/web/app/inspect/%5Bdomain%5D/%5Bkey%5D/page.tsx
+
 import Image from 'next/image'
-import { deslugify, getDateTime } from '@/utils'
+import { City } from '@/types'
+import {
+  constructMetadata,
+  deslugify,
+  DESTINATIONS,
+  getDateTime,
+  slugify,
+} from '@/utils'
 import { CalendarDaysIcon, CloudHailIcon, UmbrellaOffIcon } from 'lucide-react'
 
-import { siteConfig } from '@/config/site'
 import { getForecastData } from '@/lib/helpers'
 import ImageKit from '@/components/ImageKit'
 
 export const revalidate = 3600
 
-interface searchParamsProps {
-  searchParams: {
-    country: string
+interface CityPageProps {
+  params: {
     city: string
-    languages: string
+    country: string
   }
 }
 
-export const metadata: Metadata = {
-  title: siteConfig.title,
+export async function generateMetadata({ params }: CityPageProps) {
+  const { city, country } = params
+
+  return constructMetadata({
+    title: `${deslugify(city)}, ${deslugify(country)} - Tomorrow's Weather Forecast`,
+    description: `Latest weather forecast for ${deslugify(city)} for tomorrow's, hourly weather forecast, including tomorrow's temperatures in ${deslugify(city)}, wind, rain and more.`,
+    image: `/api/og?title=Tomorrow's Weather Forecast in ${deslugify(city)}`,
+    alternates: {
+      canonical: `/${country}/${city}`,
+    },
+  })
 }
 
-export default async function Home({
-  searchParams: { country, city },
-}: searchParamsProps) {
+export async function generateStaticParams() {
+  const combinedCities: City[] = Object.values(DESTINATIONS).reduce(
+    (acc: City[], current: City[]) => {
+      return acc.concat(current)
+    },
+    []
+  )
+
+  return combinedCities.map((destination) => ({
+    city: slugify(destination.name),
+    country: slugify(destination.country),
+  }))
+}
+
+export default async function CityPage({ params }: CityPageProps) {
+  const { city, country } = params
   const data = await getForecastData(city, country)
   const date = new Date(data.tomorrowWeather.date)
 
@@ -34,17 +62,12 @@ export default async function Home({
       </div>
       <div className="space-y-4">
         <h1 className="mb-8 font-heading text-4xl font-black capitalize md:text-7xl">
-          Tomorrow's Weather Forecast
+          Tomorrow's Weather Forecast in {deslugify(city)}
         </h1>
-        <div className="flex items-center gap-x-2 text-xl font-medium">
-          <span>{deslugify(city)}</span>
+        <div className="text-xl font-medium">
           {date && (
             <span className="flex items-center gap-x-2">
-              {' '}
-              -
-              <span className="flex items-center gap-x-2">
-                <CalendarDaysIcon className="size-4" /> {getDateTime(date)}
-              </span>
+              <CalendarDaysIcon className="size-4" /> {getDateTime(date)}
             </span>
           )}
         </div>

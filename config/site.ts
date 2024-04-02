@@ -6,6 +6,10 @@ export const siteConfig: SiteConfig = {
     'Tomorrow’s Forecast, Today’s Advantage - Plan Your Day Right, Come Rain or Shine',
   siteName: 'Will It Rain Tomorrow',
   url: new URL(`${process.env.NEXT_PUBLIC_BASE_URL}`),
+  author: {
+    name: 'Yuyu',
+    url: 'https://www.yuurrific.com',
+  },
   openGraph: {
     image: '/images/og-default.png',
     imageAlt: 'Banner for willitraintomorrow.com',

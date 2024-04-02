@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { deslugify } from '@/utils'
 
 interface forecastProp {
   date: string
@@ -14,7 +15,7 @@ export function ForecastInfo({ date, forecast, city, country }: forecastProp) {
         Tomorrow's Weather Forecast
       </h1>
       <div className="text-xl font-medium">
-        <span>{city}</span>
+        <span>{deslugify(city)}</span>
         {date && <span className="ml-2"> - {date}</span>}
       </div>
       {forecast && (

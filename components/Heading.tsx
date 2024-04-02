@@ -1,6 +1,5 @@
+import { cn } from '@/utils'
 import Balancer from 'react-wrap-balancer'
-
-import { cn } from '@/lib/utils'
 
 type HeadingProps = {
   title: string

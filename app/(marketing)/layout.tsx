@@ -1,16 +1,8 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import { City } from '@/types'
+import { DESTINATIONS, slugify } from '@/utils'
 
-import { destination } from '@/config/destinations'
-import { siteConfig } from '@/config/site'
-import { slugify } from '@/lib/utils'
 import { Footer } from '@/components/Footer'
-
-export const metadata: Metadata = {
-  title: siteConfig.title,
-  description: siteConfig.description,
-}
 
 interface MarketingLayoutProps {
   children: React.ReactNode
@@ -33,8 +25,8 @@ function DestinationCities({
           return (
             <Link
               key={`${slugify(city.name)}-${index}`}
-              href={`#`}
-              className="text-amber-300/90 capitalize"
+              href={`/${slugify(city.country)}/${slugify(city.name)}`}
+              className="text-amber-300/90 cursor-pointer capitalize"
             >
               {city.name}
             </Link>
@@ -59,41 +51,41 @@ export default function MarketingLayout({ children }: MarketingLayoutProps) {
           <div className="container space-y-8">
             <DestinationCities
               title="East Asia"
-              cities={destination['East Asia']}
+              cities={DESTINATIONS['East Asia']}
             />
             <DestinationCities
               title="South Asia"
-              cities={destination['South Asia']}
+              cities={DESTINATIONS['South Asia']}
             />
             <DestinationCities
               title="West Asia"
-              cities={destination['West Asia']}
+              cities={DESTINATIONS['West Asia']}
             />
             <DestinationCities
               title="Western Europe"
-              cities={destination['Western Europe']}
+              cities={DESTINATIONS['Western Europe']}
             />
             <DestinationCities
               title="Eastern Europe"
-              cities={destination['Eastern Europe']}
+              cities={DESTINATIONS['Eastern Europe']}
             />
             <DestinationCities
               title="Southern Europe"
-              cities={destination['Southern Europe']}
+              cities={DESTINATIONS['Southern Europe']}
             />
             <DestinationCities
               title="Northern Europe"
-              cities={destination['Northern Europe']}
+              cities={DESTINATIONS['Northern Europe']}
             />
             <DestinationCities
               title="North America"
-              cities={destination['North America']}
+              cities={DESTINATIONS['North America']}
             />
             <DestinationCities
               title="South America"
-              cities={destination['South America']}
+              cities={DESTINATIONS['South America']}
             />
-            <DestinationCities title="Africa" cities={destination['Africa']} />
+            <DestinationCities title="Africa" cities={DESTINATIONS['Africa']} />
           </div>
         </aside>
         <div className="block xl:hidden">

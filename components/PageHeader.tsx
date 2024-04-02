@@ -1,7 +1,6 @@
 import React from 'react'
+import { cn } from '@/utils'
 import Balancer from 'react-wrap-balancer'
-
-import { cn } from '@/lib/utils'
 
 export function PageHeader({
   tag = 'h1',

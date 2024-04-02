@@ -1,10 +1,10 @@
-export const destination = {
+export const DESTINATIONS = {
   'East Asia': [
     { name: 'Tokyo', country: 'Japan' },
     { name: 'Seoul', country: 'South Korea' },
     { name: 'Beijing', country: 'China' },
     { name: 'Shanghai', country: 'China' },
-    { name: 'Hong Kong', country: 'China' },
+    { name: 'Hong Kong', country: 'Hong Kong' },
   ],
   'South Asia': [
     { name: 'Mumbai', country: 'India' },
