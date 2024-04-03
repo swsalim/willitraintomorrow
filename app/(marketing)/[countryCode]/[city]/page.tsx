@@ -19,19 +19,19 @@ export const revalidate = 3600
 interface CityPageProps {
   params: {
     city: string
-    country: string
+    countryCode: string
   }
 }
 
 export async function generateMetadata({ params }: CityPageProps) {
-  const { city, country } = params
+  const { city, countryCode } = params
 
   return constructMetadata({
-    title: `${deslugify(city)}, ${deslugify(country)} - Tomorrow's Weather Forecast`,
+    title: `${deslugify(city)}, ${deslugify(countryCode)} - Tomorrow's Weather Forecast`,
     description: `Latest weather forecast for ${deslugify(city)} for tomorrow's, hourly weather forecast, including tomorrow's temperatures in ${deslugify(city)}, wind, rain and more.`,
     image: `/api/og?title=Tomorrow's Weather Forecast in ${deslugify(city)}`,
     alternates: {
-      canonical: `/${country}/${city}`,
+      canonical: `/${countryCode}/${city}`,
     },
   })
 }
@@ -46,13 +46,13 @@ export async function generateStaticParams() {
 
   return combinedCities.map((destination) => ({
     city: slugify(destination.name),
-    country: slugify(destination.country),
+    countryCode: slugify(destination.countryCode),
   }))
 }
 
 export default async function CityPage({ params }: CityPageProps) {
-  const { city, country } = params
-  const data = await getForecastData(city, country)
+  const { city, countryCode } = params
+  const data = await getForecastData(city, countryCode)
   const date = new Date(data.tomorrowWeather.date)
 
   return (
@@ -88,7 +88,7 @@ export default async function CityPage({ params }: CityPageProps) {
             <div className="relative">
               <Image
                 src={`https:${data.tomorrowWeather.day.condition.icon}`}
-                alt={`Tomorrow weather data.tomorrowWeather for ${city}, ${country}`}
+                alt={`Tomorrow weather data.tomorrowWeather for ${city}, ${countryCode}`}
                 width={70}
                 height={70}
                 unoptimized={false}

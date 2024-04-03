@@ -25,7 +25,7 @@ function DestinationCities({
           return (
             <Link
               key={`${slugify(city.name)}-${index}`}
-              href={`/${slugify(city.country)}/${slugify(city.name)}`}
+              href={`/${slugify(city.countryCode)}/${slugify(city.name)}`}
               className="text-amber-300/90 cursor-pointer capitalize"
             >
               {city.name}

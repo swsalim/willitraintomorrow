@@ -72,6 +72,7 @@ export type Currency = {
 export type City = {
   name: string
   country: string
+  countryCode: string
 }
 
 export type Country = {
