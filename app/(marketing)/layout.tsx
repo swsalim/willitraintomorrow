@@ -41,9 +41,11 @@ export default function MarketingLayout({ children }: MarketingLayoutProps) {
   return (
     <>
       <main className="bg-black flex flex-1 flex-col xl:flex-row">
-        <div className="container relative grid py-12 xl:place-content-center xl:pr-96">
-          {children}
-          <div className="fixed bottom-0 hidden xl:block">
+        <div className="container relative flex flex-col pt-12  xl:pr-96">
+          <div className="flex flex-1 flex-col xl:place-content-center">
+            {children}
+          </div>
+          <div className="hidden xl:block">
             <Footer />
           </div>
         </div>
