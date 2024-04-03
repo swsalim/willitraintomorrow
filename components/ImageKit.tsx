@@ -3,8 +3,7 @@
 // if using the App router
 import React from 'react'
 import Image, { ImageProps } from 'next/image'
-
-import { imageKitLoader } from '@/lib/utils'
+import { imageKitLoader } from '@/utils'
 
 interface ImageKitProps extends ImageProps {
   src: string

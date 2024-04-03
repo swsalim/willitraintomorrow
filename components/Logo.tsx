@@ -1,4 +1,5 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils'
+
 import ImageKit from '@/components/ImageKit'
 
 export default function HomeLogo({ className }: { className?: string }) {

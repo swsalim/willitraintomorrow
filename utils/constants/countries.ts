@@ -1,4 +1,4 @@
-[
+export const COUNTRIES = [
   {
     "cca2": "AW",
     "currencies": { "AWG": { "name": "Aruban florin", "symbol": "ƒ" } },

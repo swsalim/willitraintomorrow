@@ -1,6 +1,6 @@
 // https://vercel.com/templates/next.js/edge-functions-geolocation
 import { NextRequest, NextResponse } from 'next/server'
-import countries from '@/lib/countries.json'
+import { COUNTRIES } from '@/utils'
 
 // run only on homepage
 export const config = {
@@ -13,10 +13,10 @@ export async function middleware(req: NextRequest) {
   const city = geo?.city || 'San Francisco'
   const region = geo?.region || 'CA'
 
-  const countryInfo = countries.find((x) => x.cca2 === country)
+  const countryInfo = COUNTRIES.find((x) => x.cca2 === country)
 
-  if(!countryInfo) {
-    return NextResponse.json({ message: 'Country not found!'}, { status: 404 })
+  if (!countryInfo) {
+    return NextResponse.json({ message: 'Country not found!' }, { status: 404 })
   }
 
   const currencyCode = Object.keys(countryInfo.currencies)[0]

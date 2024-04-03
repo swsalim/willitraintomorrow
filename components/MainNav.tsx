@@ -3,11 +3,11 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
+import { cn } from '@/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { MainNavItem } from 'types'
 import { siteConfig } from '@/config/site'
-import { cn } from '@/lib/utils'
 import Logo from '@/components/Logo'
 
 interface MainNavProps {

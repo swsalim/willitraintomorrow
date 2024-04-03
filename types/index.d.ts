@@ -54,6 +54,10 @@ export type SiteConfig = {
     height: string
   }
   creator: string
+  author: {
+    name: string
+    url: string
+  }
 }
 
 export type MarketingConfig = {
@@ -68,6 +72,7 @@ export type Currency = {
 export type City = {
   name: string
   country: string
+  countryCode: string
 }
 
 export type Country = {
