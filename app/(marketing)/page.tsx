@@ -82,10 +82,10 @@ export default async function Home({
               <div className="text-base font-semibold">
                 {data.tomorrowWeather.day.condition.text}
               </div>
-              <div>
+              <div className="text-gray-700">
                 Feels like {data.tomorrowWeather.day.avgtemp_c}° · High{' '}
-                {data.tomorrowWeather.day.mintemp_c}° · Low{' '}
-                {data.tomorrowWeather.day.maxtemp_c}°
+                {data.tomorrowWeather.day.maxtemp_c}° · Low{' '}
+                {data.tomorrowWeather.day.mintemp_c}°
               </div>
             </div>
           </>
