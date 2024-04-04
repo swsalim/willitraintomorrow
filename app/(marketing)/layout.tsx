@@ -41,7 +41,7 @@ export default function MarketingLayout({ children }: MarketingLayoutProps) {
   return (
     <>
       <main className="bg-black flex flex-1 flex-col xl:flex-row">
-        <div className="container relative flex flex-col pt-12  xl:pr-96">
+        <div className="container relative flex flex-col py-12 xl:pb-0 xl:pr-96">
           <div className="flex flex-1 flex-col xl:place-content-center">
             {children}
           </div>
@@ -87,6 +87,10 @@ export default function MarketingLayout({ children }: MarketingLayoutProps) {
               title="South America"
               cities={DESTINATIONS['South America']}
             />
+            {/* <DestinationCities
+              title="Central America"
+              cities={DESTINATIONS['Central America']}
+            /> */}
             <DestinationCities title="Africa" cities={DESTINATIONS['Africa']} />
           </div>
         </aside>

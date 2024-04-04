@@ -13,6 +13,7 @@ import { CalendarDaysIcon, CloudHailIcon, UmbrellaOffIcon } from 'lucide-react'
 
 import { getForecastData } from '@/lib/helpers'
 import ImageKit from '@/components/ImageKit'
+import { PageHeader } from '@/components/PageHeader'
 
 export const revalidate = 3600
 
@@ -23,6 +24,7 @@ interface CityPageProps {
   }
 }
 
+// TODO: Update title with country name
 export async function generateMetadata({ params }: CityPageProps) {
   const { city, countryCode } = params
 
@@ -57,44 +59,57 @@ export default async function CityPage({ params }: CityPageProps) {
 
   return (
     <>
-      <div className="mb-4 size-20 drop-shadow-md">
+      <div className="mx-auto mb-4 size-20 drop-shadow-md">
         <ImageKit src="logo-circle.png" alt="Will It Rain Tomorrow?" />
       </div>
       <div className="space-y-4">
-        <h1 className="mb-8 font-heading text-4xl font-black capitalize md:text-7xl">
-          Tomorrow's Weather Forecast in {deslugify(city)}
-        </h1>
+        <PageHeader
+          className="text-center"
+          title={`Tomorrow's Weather Forecast in ${deslugify(city)}`}
+        />
         <div className="text-xl font-medium">
           {date && (
-            <span className="flex items-center gap-x-2">
-              <CalendarDaysIcon className="size-4" /> {getDateTime(date)}
+            <span className="flex items-center justify-center gap-x-2">
+              <CalendarDaysIcon className="size-6" /> {getDateTime(date)}
             </span>
           )}
         </div>
         {data.tomorrowWeather && (
           <>
-            <div className="flex items-center gap-x-2 text-xl">
+            <div className="mb-2 flex items-center justify-center gap-x-2 text-xl">
               {data.tomorrowWeather.day.daily_chance_of_rain >= 50 && (
-                <CloudHailIcon className="size-4" />
+                <CloudHailIcon className="size-6" />
               )}
               {data.tomorrowWeather.day.daily_chance_of_rain < 50 && (
-                <UmbrellaOffIcon className="size-4" />
+                <UmbrellaOffIcon className="size-6" />
               )}
               Chance of Rain:{' '}
               <span className="font-semibold">
                 {data.tomorrowWeather.day.daily_chance_of_rain}%
               </span>
             </div>
-            <div className="relative">
-              <Image
-                src={`https:${data.tomorrowWeather.day.condition.icon}`}
-                alt={`Tomorrow weather data.tomorrowWeather for ${city}, ${countryCode}`}
-                width={70}
-                height={70}
-                unoptimized={false}
-              />
-              <div className="text-lg font-semibold">
+            <div className="mx-auto flex max-w-2xl flex-col items-center gap-2">
+              <div className="flex flex-row items-center">
+                <div className="relative">
+                  <Image
+                    src={`https:${data.tomorrowWeather.day.condition.icon}`}
+                    alt={`Tomorrow weather data.tomorrowWeather for ${city}, ${countryCode}`}
+                    width={70}
+                    height={70}
+                    unoptimized={false}
+                  />
+                </div>
+                <div className="text-6xl font-semibold">
+                  {data.tomorrowWeather.day.avgtemp_c}°
+                </div>
+              </div>
+              <div className="text-base font-semibold">
                 {data.tomorrowWeather.day.condition.text}
+              </div>
+              <div>
+                Feels like {data.tomorrowWeather.day.avgtemp_c}° · High{' '}
+                {data.tomorrowWeather.day.mintemp_c}° · Low{' '}
+                {data.tomorrowWeather.day.maxtemp_c}°
               </div>
             </div>
           </>

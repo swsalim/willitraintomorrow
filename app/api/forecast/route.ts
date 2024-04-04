@@ -19,10 +19,12 @@ export async function GET(request: NextRequest) {
 
     // Return the weather forecast data to the client
     if (weatherData) {
-      const data = {
-        tomorrowWeather: weatherData.forecast?.forecastday[1],
-      }
-      return NextResponse.json({ success: true, ...data }, { status: 200 })
+      const tomorrowWeather = weatherData.forecast?.forecastday[1]
+
+      return NextResponse.json(
+        { success: true, tomorrowWeather },
+        { status: 200 }
+      )
     } else {
       return NextResponse.json(
         { success: false, error: 'Weather data not found.' },

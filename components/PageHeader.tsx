@@ -10,18 +10,20 @@ export function PageHeader({
 }: {
   tag?: React.ElementType
   title: string
-  intro: string
-  className: string
+  intro?: string
+  className?: string
 }) {
   return (
     <header className={cn('max-w-5xl', className)}>
       <Balancer
         as={tag}
-        className="font-heading text-4xl tracking-tight text-foreground [word-spacing:4px] sm:text-5xl"
+        className="mb-4 text-center font-heading text-4xl font-black capitalize md:text-6xl"
       >
         {title}
       </Balancer>
-      <p className="mt-6 text-2xl font-medium text-gray-500">{intro}</p>
+      {intro && (
+        <p className="mt-6 text-2xl font-medium text-gray-500">{intro}</p>
+      )}
     </header>
   )
 }
