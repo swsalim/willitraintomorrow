@@ -98,7 +98,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="bg-amber-100 flex min-h-screen flex-col font-sans"
+        className="flex min-h-screen flex-col bg-amber-100 font-sans"
         suppressHydrationWarning
       >
         {children}

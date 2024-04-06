@@ -2,9 +2,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { COUNTRIES } from '@/utils'
 
-// run only on homepage
 export const config = {
-  matcher: '/',
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
 }
 
 export async function middleware(req: NextRequest) {
@@ -12,6 +20,7 @@ export async function middleware(req: NextRequest) {
   const country = geo?.country || 'US'
   const city = geo?.city || 'San Francisco'
   const region = geo?.region || 'CA'
+  const temperature = req.cookies.get('tempScale')?.value
 
   const countryInfo = COUNTRIES.find((x) => x.cca2 === country)
 
@@ -22,7 +31,6 @@ export async function middleware(req: NextRequest) {
   const currencyCode = Object.keys(countryInfo.currencies)[0]
 
   // eslint-disable-next-line
-  // const currency = countryInfo.currencies[currencyCode]
   const languages = Object.values(countryInfo.languages).join(', ')
 
   url.searchParams.set('country', country)
@@ -31,5 +39,9 @@ export async function middleware(req: NextRequest) {
   url.searchParams.set('currencyCode', currencyCode)
   url.searchParams.set('languages', languages)
 
-  return NextResponse.rewrite(url)
+  const response = NextResponse.rewrite(url)
+
+  response.cookies.set('tempScale', temperature || 'C')
+
+  return response
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { deslugify, getDateTime } from '@/utils'
-import { CalendarDaysIcon, CloudHailIcon, UmbrellaOffIcon } from 'lucide-react'
+import { CalendarDaysIcon } from 'lucide-react'
 
 import { siteConfig } from '@/config/site'
 import { getForecastData } from '@/lib/helpers'
@@ -53,12 +52,18 @@ export default async function Home({
         </div>
         {tomorrowWeather && (
           <TemperatureWidget
-            avgTempC={tomorrowWeather.day.avgtemp_c}
             chanceOfRain={tomorrowWeather.day.daily_chance_of_rain}
             condition={tomorrowWeather.day.condition.text}
-            icon={tomorrowWeather.day.condition.icon}
-            maxTempC={tomorrowWeather.day.maxtemp_c}
-            minTempC={tomorrowWeather.day.mintemp_c}
+            tempC={{
+              avg: tomorrowWeather.day.avgtemp_c,
+              max: tomorrowWeather.day.maxtemp_c,
+              min: tomorrowWeather.day.mintemp_c,
+            }}
+            tempF={{
+              avg: tomorrowWeather.day.avgtemp_f,
+              max: tomorrowWeather.day.maxtemp_f,
+              min: tomorrowWeather.day.mintemp_f,
+            }}
           />
         )}
       </div>

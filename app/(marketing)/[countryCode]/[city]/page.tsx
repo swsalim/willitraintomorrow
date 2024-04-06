@@ -1,6 +1,5 @@
 // https://github.com/dubinc/dub/blob/main/apps/web/app/inspect/%5Bdomain%5D/%5Bkey%5D/page.tsx
 
-import Image from 'next/image'
 import { City } from '@/types'
 import {
   constructMetadata,
@@ -9,7 +8,7 @@ import {
   getDateTime,
   slugify,
 } from '@/utils'
-import { CalendarDaysIcon, CloudHailIcon, UmbrellaOffIcon } from 'lucide-react'
+import { CalendarDaysIcon } from 'lucide-react'
 
 import { getForecastData } from '@/lib/helpers'
 import ImageKit from '@/components/ImageKit'
@@ -77,51 +76,19 @@ export default async function CityPage({ params }: CityPageProps) {
         </div>
         {tomorrowWeather && (
           <TemperatureWidget
-            avgTempC={tomorrowWeather.day.avgtemp_c}
             chanceOfRain={tomorrowWeather.day.daily_chance_of_rain}
             condition={tomorrowWeather.day.condition.text}
-            icon={tomorrowWeather.day.condition.icon}
-            maxTempC={tomorrowWeather.day.maxtemp_c}
-            minTempC={tomorrowWeather.day.mintemp_c}
+            tempC={{
+              avg: tomorrowWeather.day.avgtemp_c,
+              max: tomorrowWeather.day.maxtemp_c,
+              min: tomorrowWeather.day.mintemp_c,
+            }}
+            tempF={{
+              avg: tomorrowWeather.day.avgtemp_f,
+              max: tomorrowWeather.day.maxtemp_f,
+              min: tomorrowWeather.day.mintemp_f,
+            }}
           />
-          // <>
-          //   <div className="mb-2 flex items-center justify-center gap-x-2 text-xl">
-          //     {data.tomorrowWeather.day.daily_chance_of_rain >= 50 && (
-          //       <CloudHailIcon className="size-6" />
-          //     )}
-          //     {data.tomorrowWeather.day.daily_chance_of_rain < 50 && (
-          //       <UmbrellaOffIcon className="size-6" />
-          //     )}
-          //     Chance of Rain:{' '}
-          //     <span className="font-semibold">
-          //       {data.tomorrowWeather.day.daily_chance_of_rain}%
-          //     </span>
-          //   </div>
-          //   <div className="mx-auto flex max-w-2xl flex-col items-center gap-2">
-          //     <div className="flex flex-row items-center">
-          //       <div className="relative">
-          //         <Image
-          //           src={`https:${data.tomorrowWeather.day.condition.icon}`}
-          //           alt={`Tomorrow weather data.tomorrowWeather for ${city}, ${countryCode}`}
-          //           width={70}
-          //           height={70}
-          //           unoptimized={false}
-          //         />
-          //       </div>
-          //       <div className="text-6xl font-semibold">
-          //         {data.tomorrowWeather.day.avgtemp_c}°
-          //       </div>
-          //     </div>
-          //     <div className="text-base font-semibold">
-          //       {data.tomorrowWeather.day.condition.text}
-          //     </div>
-          //     <div className="text-gray-700">
-          //       Feels like {data.tomorrowWeather.day.avgtemp_c}° · High{' '}
-          //       {data.tomorrowWeather.day.maxtemp_c}° · Low{' '}
-          //       {data.tomorrowWeather.day.mintemp_c}°
-          //     </div>
-          //   </div>
-          // </>
         )}
       </div>
     </>

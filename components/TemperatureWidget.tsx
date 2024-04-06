@@ -1,24 +1,27 @@
-import { conditions } from '@/utils'
+import { cookies } from 'next/headers'
+import { setTempScale } from '@/actions/setTempScale'
+import { TemperatureForecast } from '@/types'
+import { cn, conditions } from '@/utils'
 
-import { Umbrella, UmbrellaOff } from './icons'
+import { Umbrella, UmbrellaOff } from '@/components/icons'
 
 interface TemperatureProps {
   chanceOfRain: number
-  icon: string
-  avgTempC: string
-  minTempC: string
-  maxTempC: string
+  tempC: TemperatureForecast
+  tempF: TemperatureForecast
   condition: string
 }
 
 export function TemperatureWidget({
   chanceOfRain,
-  avgTempC,
-  minTempC,
-  maxTempC,
+  tempC,
+  tempF,
   condition,
 }: TemperatureProps) {
-  // const Icon = iconComponents[condition]
+  const tempScale = cookies().get('tempScale')?.value
+  const degreeTempScale = `°${tempScale}`
+  const currentTemp = tempScale === 'C' ? tempC : tempF
+
   const weatherCondition = conditions.filter(
     (cond) => cond.day.trim().toLowerCase() === condition.trim().toLowerCase()
   )
@@ -32,11 +35,35 @@ export function TemperatureWidget({
           <div className="relative">
             {Icon && <Icon className="mr-2 size-10" />}
           </div>
-          <div className="text-6xl font-semibold">{avgTempC}°C</div>
+          <div className="flex flex-row text-6xl font-semibold">
+            {currentTemp.avg}
+            <form className="text-xl font-normal" action={setTempScale}>
+              <button
+                name="tempScale"
+                value="C"
+                type="submit"
+                className={cn(tempScale !== 'C' && 'text-gray-500')}
+              >
+                °C
+              </button>{' '}
+              |{' '}
+              <button
+                name="tempScale"
+                value="F"
+                type="submit"
+                className={cn(tempScale !== 'F' && 'text-gray-500')}
+              >
+                °F
+              </button>
+            </form>
+          </div>
         </div>
         <div className="text-base font-semibold">{condition}</div>
         <div className="inline-block text-gray-700 md:flex">
-          Feels like {avgTempC}°C · High {maxTempC}°C · Low {minTempC}°C
+          Feels like {currentTemp.avg}
+          {degreeTempScale} · High {currentTemp.max}
+          {degreeTempScale} · Low {currentTemp.min}
+          {degreeTempScale}
           <span className="hidden md:block"> ·</span>
           <span className="flex items-center justify-center gap-1 md:ml-1">
             {chanceOfRain >= 50 && <Umbrella className="size-5" />}

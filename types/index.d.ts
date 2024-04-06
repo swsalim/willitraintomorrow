@@ -116,3 +116,9 @@ export type TomorrowWeather = {
   date_epoch: number
   day: WeatherDayInfo
 }
+
+export type TemperatureForecast = {
+  avg: string
+  max: string
+  min: string
+}
