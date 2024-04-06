@@ -18,7 +18,7 @@ export function TemperatureWidget({
   tempF,
   condition,
 }: TemperatureProps) {
-  const tempScale = cookies().get('tempScale')?.value
+  const tempScale = cookies().get('tempScale')?.value || 'C'
   const degreeTempScale = `°${tempScale}`
   const currentTemp = tempScale === 'C' ? tempC : tempF
 

@@ -33,13 +33,14 @@ export async function middleware(req: NextRequest) {
   // eslint-disable-next-line
   const languages = Object.values(countryInfo.languages).join(', ')
 
-  url.searchParams.set('country', country)
-  url.searchParams.set('city', city)
-  url.searchParams.set('region', region)
-  url.searchParams.set('currencyCode', currencyCode)
-  url.searchParams.set('languages', languages)
+  const targetUrl = url.clone()
+  targetUrl.searchParams.set('country', country)
+  targetUrl.searchParams.set('city', city)
+  targetUrl.searchParams.set('region', region)
+  targetUrl.searchParams.set('currencyCode', currencyCode)
+  targetUrl.searchParams.set('languages', languages)
 
-  const response = NextResponse.rewrite(url)
+  const response = NextResponse.rewrite(targetUrl)
 
   response.cookies.set('tempScale', temperature || 'C')
 
