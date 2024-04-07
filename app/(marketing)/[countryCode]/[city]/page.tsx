@@ -43,7 +43,13 @@ export async function generateMetadata({ params }: CityPageProps) {
   const { city, countryCode } = params
   const cities: City[] = getCombinedCities()
 
-  const currentCity = cities.filter((c) => c.name.trim() === deslugify(city))[0]
+  const currentCity = cities.filter(
+    (c) => c.name.trim().toLowerCase() === deslugify(city).toLowerCase()
+  )[0]
+
+  // console.log(`city`)
+  // console.log(city, deslugify(city))
+  // console.log(currentCity)
 
   return constructMetadata({
     title: `Tomorrow Weather in ${currentCity?.name}, ${currentCity?.country} - Will It Rain?`,
