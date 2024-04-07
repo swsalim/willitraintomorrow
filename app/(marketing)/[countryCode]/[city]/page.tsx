@@ -1,5 +1,6 @@
 // https://github.com/dubinc/dub/blob/main/apps/web/app/inspect/%5Bdomain%5D/%5Bkey%5D/page.tsx
 
+import Link from 'next/link'
 import { City } from '@/types'
 import {
   constructMetadata,
@@ -24,14 +25,30 @@ interface CityPageProps {
   }
 }
 
+function getCombinedCities() {
+  return Object.values(DESTINATIONS).reduce((acc: City[], current: City[]) => {
+    return acc.concat(current)
+  }, [])
+}
+
 // TODO: Update title with country name
+// Weather in Kolkata, West Bengal, India | Tomorrow.io
+// Kolkata, West Bengal, India Weather Forecast | AccuWeather
+// Kolkata, West Bengal, India 14 day weather forecast
+// The most accurate current weather forecast in Kolkata. Be prepared for today's weather with a detailed local report.
+// Kolkata, West Bengal, India Weather Forecast, with current conditions, wind, air quality, and what to expect for the next 3 days.
+// Forecasted weather conditions the coming 2 weeks for Kolkata
+
 export async function generateMetadata({ params }: CityPageProps) {
   const { city, countryCode } = params
+  const cities: City[] = getCombinedCities()
+
+  const currentCity = cities.filter((c) => c.name.trim() === deslugify(city))[0]
 
   return constructMetadata({
-    title: `${deslugify(city)}, ${deslugify(countryCode)} - Tomorrow's Weather Forecast`,
-    description: `Latest weather forecast for ${deslugify(city)} for tomorrow's, hourly weather forecast, including tomorrow's temperatures in ${deslugify(city)}, wind, rain and more.`,
-    image: `/api/og?title=Tomorrow's Weather Forecast in ${deslugify(city)}`,
+    title: `Tomorrow Weather in ${currentCity.name}, ${currentCity.country} - Will It Rain?`,
+    description: `Get the latest on tomorrow weather forecast in ${currentCity.name}, ${currentCity.country}. Precise rain forecast to help you decide: umbrella or sunglasses?`,
+    image: `/api/og?title=Tomorrow Weather Forecast in ${currentCity.name}, ${currentCity.country}`,
     alternates: {
       canonical: `/${countryCode}/${city}`,
     },
@@ -39,12 +56,7 @@ export async function generateMetadata({ params }: CityPageProps) {
 }
 
 export async function generateStaticParams() {
-  const combinedCities: City[] = Object.values(DESTINATIONS).reduce(
-    (acc: City[], current: City[]) => {
-      return acc.concat(current)
-    },
-    []
-  )
+  const combinedCities: City[] = getCombinedCities()
 
   return combinedCities.map((destination) => ({
     city: slugify(destination.name),
@@ -60,12 +72,14 @@ export default async function CityPage({ params }: CityPageProps) {
   return (
     <>
       <div className="mx-auto mb-4 size-20 drop-shadow-md">
-        <ImageKit src="logo-circle.png" alt="Will It Rain Tomorrow?" />
+        <Link href="/" title="Back to Home">
+          <ImageKit src="logo-circle.png" alt="Will It Rain Tomorrow?" />
+        </Link>
       </div>
       <div className="space-y-4">
         <PageHeader
           className="text-center"
-          title={`Tomorrow's Weather Forecast in ${deslugify(city)}`}
+          title={`Tomorrow Weather Forecast in ${deslugify(city)}`}
         />
         <div className="text-xl font-medium">
           {date && (

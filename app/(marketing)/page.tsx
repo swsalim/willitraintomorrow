@@ -34,10 +34,7 @@ export default async function Home({
         <ImageKit src="logo-circle.png" alt="Will It Rain Tomorrow?" />
       </div>
       <div className="space-y-4">
-        <PageHeader
-          className="text-center"
-          title="Tomorrow's Weather Forecast"
-        />
+        <PageHeader className="text-center" title="Tomorrow Weather Forecast" />
         <div className="flex items-center justify-center gap-x-2 text-xl font-medium">
           <span>{deslugify(city)}</span>
           {date && (
