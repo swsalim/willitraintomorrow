@@ -46,9 +46,9 @@ export async function generateMetadata({ params }: CityPageProps) {
   const currentCity = cities.filter((c) => c.name.trim() === deslugify(city))[0]
 
   return constructMetadata({
-    title: `Tomorrow Weather in ${currentCity.name}, ${currentCity.country} - Will It Rain?`,
-    description: `Get the latest on tomorrow weather forecast in ${currentCity.name}, ${currentCity.country}. Precise rain forecast to help you decide: umbrella or sunglasses?`,
-    image: `/api/og?title=Tomorrow Weather Forecast in ${currentCity.name}, ${currentCity.country}`,
+    title: `Tomorrow Weather in ${currentCity?.name}, ${currentCity?.country} - Will It Rain?`,
+    description: `Get the latest on tomorrow weather forecast in ${currentCity?.name}, ${currentCity?.country}. Precise rain forecast to help you decide: umbrella or sunglasses?`,
+    image: `/api/og?title=Tomorrow Weather Forecast in ${currentCity?.name}, ${currentCity?.country}`,
     alternates: {
       canonical: `/${countryCode}/${city}`,
     },
