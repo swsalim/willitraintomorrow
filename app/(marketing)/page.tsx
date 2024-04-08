@@ -5,7 +5,6 @@ import { CalendarDaysIcon } from 'lucide-react'
 import { siteConfig } from '@/config/site'
 import { getForecastData } from '@/lib/helpers'
 import ImageKit from '@/components/ImageKit'
-import { PageHeader } from '@/components/PageHeader'
 import { TemperatureWidget } from '@/components/TemperatureWidget'
 
 export const revalidate = 3600
@@ -34,16 +33,14 @@ export default async function Home({
         <ImageKit src="logo-circle.png" alt="Will It Rain Tomorrow?" />
       </div>
       <div className="space-y-4">
-        <PageHeader className="text-center" title="Tomorrow Weather Forecast" />
-        <div className="flex items-center justify-center gap-x-2 text-xl font-medium">
-          <span>{deslugify(city)}</span>
+        <h1 className="mb-4 text-center font-heading text-base font-bold capitalize tracking-wide md:text-lg">
+          Tomorrow Weather Forecast in{' '}
+          <span className="font-black">{deslugify(city)}</span>
+        </h1>
+        <div className="text-2xl font-black">
           {date && (
-            <span className="flex items-center gap-x-2">
-              {' '}
-              -
-              <span className="flex items-center gap-x-2">
-                <CalendarDaysIcon className="size-6" /> {getDateTime(date)}
-              </span>
+            <span className="flex items-center justify-center gap-x-2">
+              <CalendarDaysIcon className="size-6" /> {getDateTime(date)}
             </span>
           )}
         </div>

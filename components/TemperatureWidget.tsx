@@ -33,16 +33,16 @@ export function TemperatureWidget({
       <div className="mx-auto flex max-w-2xl flex-col items-center gap-2">
         <div className="flex flex-row items-center">
           <div className="relative">
-            {Icon && <Icon className="mr-2 size-10" />}
+            {Icon && <Icon className="mr-2 size-20" />}
           </div>
-          <div className="flex flex-row text-6xl font-semibold">
+          <div className="flex flex-row text-7xl font-semibold">
             {currentTemp.avg}
-            <form className="text-xl font-normal" action={setTempScale}>
+            <form className="ml-2 text-xl font-bold" action={setTempScale}>
               <button
                 name="tempScale"
                 value="C"
                 type="submit"
-                className={cn(tempScale !== 'C' && 'text-gray-500')}
+                className={cn(tempScale !== 'C' && 'font-normal text-gray-500')}
               >
                 °C
               </button>{' '}
@@ -51,14 +51,14 @@ export function TemperatureWidget({
                 name="tempScale"
                 value="F"
                 type="submit"
-                className={cn(tempScale !== 'F' && 'text-gray-500')}
+                className={cn(tempScale !== 'F' && 'font-normal text-gray-500')}
               >
                 °F
               </button>
             </form>
           </div>
         </div>
-        <div className="text-base font-semibold">{condition}</div>
+        <div className="text-xl font-semibold">{condition}</div>
         <div className="inline-block text-gray-700 md:flex">
           Feels like {currentTemp.avg}
           {degreeTempScale} · High {currentTemp.max}

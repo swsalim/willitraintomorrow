@@ -13,7 +13,6 @@ import { CalendarDaysIcon } from 'lucide-react'
 
 import { getForecastData } from '@/lib/helpers'
 import ImageKit from '@/components/ImageKit'
-import { PageHeader } from '@/components/PageHeader'
 import { TemperatureWidget } from '@/components/TemperatureWidget'
 
 export const revalidate = 3600
@@ -83,11 +82,11 @@ export default async function CityPage({ params }: CityPageProps) {
         </Link>
       </div>
       <div className="space-y-4">
-        <PageHeader
-          className="text-center"
-          title={`Tomorrow Weather Forecast in ${deslugify(city)}`}
-        />
-        <div className="text-xl font-medium">
+        <h1 className="mb-4 text-center font-heading text-base font-bold capitalize tracking-wide md:text-lg">
+          Tomorrow Weather Forecast in{' '}
+          <span className="font-black">{deslugify(city)}</span>
+        </h1>
+        <div className="text-2xl font-black">
           {date && (
             <span className="flex items-center justify-center gap-x-2">
               <CalendarDaysIcon className="size-6" /> {getDateTime(date)}
