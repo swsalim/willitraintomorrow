@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { City } from '@/types'
-import { DESTINATIONS, slugify } from '@/utils'
+import { DESTINATIONS, getCityName, slugify } from '@/utils'
 
 import { Footer } from '@/components/Footer'
 
@@ -17,7 +17,7 @@ function DestinationCities({
 }) {
   return (
     <div>
-      <h3 className="text-amber-50 mb-4 font-heading text-lg font-bold capitalize">
+      <h3 className="mb-4 font-heading text-lg font-bold capitalize text-amber-50">
         {title}
       </h3>
       <div className="flex flex-wrap gap-x-4 gap-y-2">
@@ -26,9 +26,9 @@ function DestinationCities({
             <Link
               key={`${slugify(city.name)}-${index}`}
               href={`/${slugify(city.countryCode)}/${slugify(city.name)}`}
-              className="text-amber-300/90 cursor-pointer capitalize"
+              className="cursor-pointer text-amber-300/90"
             >
-              {city.name}
+              {getCityName(city)}
             </Link>
           )
         })}
@@ -49,7 +49,7 @@ export default function MarketingLayout({ children }: MarketingLayoutProps) {
             <Footer />
           </div>
         </div>
-        <aside className="border-amber-200 bg-amber-950 block w-full overflow-y-auto py-6 xl:fixed xl:inset-y-0 xl:right-0 xl:block xl:w-96 xl:border-l">
+        <aside className="block w-full overflow-y-auto border-amber-200 bg-amber-950 py-6 xl:fixed xl:inset-y-0 xl:right-0 xl:block xl:w-96 xl:border-l">
           <div className="container space-y-8">
             <DestinationCities
               title="East Asia"
@@ -80,6 +80,10 @@ export default function MarketingLayout({ children }: MarketingLayoutProps) {
               cities={DESTINATIONS['Northern Europe']}
             />
             <DestinationCities
+              title="Central America"
+              cities={DESTINATIONS['Central America']}
+            />
+            <DestinationCities
               title="North America"
               cities={DESTINATIONS['North America']}
             />
@@ -87,10 +91,6 @@ export default function MarketingLayout({ children }: MarketingLayoutProps) {
               title="South America"
               cities={DESTINATIONS['South America']}
             />
-            {/* <DestinationCities
-              title="Central America"
-              cities={DESTINATIONS['Central America']}
-            /> */}
             <DestinationCities title="Africa" cities={DESTINATIONS['Africa']} />
           </div>
         </aside>

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { deslugify, getDateTime } from '@/utils'
+import { getDateTime } from '@/utils'
 import { CalendarDaysIcon } from 'lucide-react'
 
 import { siteConfig } from '@/config/site'
@@ -35,7 +35,7 @@ export default async function Home({
       <div className="space-y-4">
         <h1 className="mb-4 text-center font-heading text-base font-bold capitalize tracking-wide md:text-lg">
           Tomorrow Weather Forecast in{' '}
-          <span className="font-black">{deslugify(city)}</span>
+          <span className="font-black">{city}</span>
         </h1>
         <div className="text-2xl font-black">
           {date && (

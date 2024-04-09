@@ -73,6 +73,7 @@ export type City = {
   name: string
   country: string
   countryCode: string
+  displayName?: string
 }
 
 export type Country = {

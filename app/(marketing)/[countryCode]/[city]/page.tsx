@@ -4,8 +4,10 @@ import Link from 'next/link'
 import { City } from '@/types'
 import {
   constructMetadata,
-  deslugify,
   DESTINATIONS,
+  getAllCities,
+  getCityName,
+  getCurrentCity,
   getDateTime,
   slugify,
 } from '@/utils'
@@ -30,30 +32,20 @@ function getCombinedCities() {
   }, [])
 }
 
-// TODO: Update title with country name
-// Weather in Kolkata, West Bengal, India | Tomorrow.io
-// Kolkata, West Bengal, India Weather Forecast | AccuWeather
-// Kolkata, West Bengal, India 14 day weather forecast
-// The most accurate current weather forecast in Kolkata. Be prepared for today's weather with a detailed local report.
-// Kolkata, West Bengal, India Weather Forecast, with current conditions, wind, air quality, and what to expect for the next 3 days.
-// Forecasted weather conditions the coming 2 weeks for Kolkata
-
 export async function generateMetadata({ params }: CityPageProps) {
   const { city, countryCode } = params
-  const cities: City[] = getCombinedCities()
+  const cities: City[] = getAllCities()
 
-  const currentCity = cities.filter(
-    (c) => c.name.trim().toLowerCase() === deslugify(city).toLowerCase()
-  )[0]
+  const currentCity = getCurrentCity(city, cities)
 
   // console.log(`city`)
   // console.log(city, deslugify(city))
   // console.log(currentCity)
 
   return constructMetadata({
-    title: `Tomorrow Weather in ${currentCity?.name}, ${currentCity?.country} - Will It Rain?`,
-    description: `Get the latest on tomorrow weather forecast in ${currentCity?.name}, ${currentCity?.country}. Precise rain forecast to help you decide: umbrella or sunglasses?`,
-    image: `/api/og?title=Tomorrow Weather Forecast in ${currentCity?.name}, ${currentCity?.country}`,
+    title: `Tomorrow Weather in ${getCityName(currentCity)}, ${currentCity?.country} - Will It Rain?`,
+    description: `Get the latest on tomorrow weather forecast in ${getCityName(currentCity)}, ${currentCity?.country}. Precise rain forecast to help you decide: umbrella or sunglasses?`,
+    image: `/api/og?title=Tomorrow Weather Forecast in ${getCityName(currentCity)}, ${currentCity?.country}`,
     alternates: {
       canonical: `/${countryCode}/${city}`,
     },
@@ -71,6 +63,8 @@ export async function generateStaticParams() {
 
 export default async function CityPage({ params }: CityPageProps) {
   const { city, countryCode } = params
+  const cities: City[] = getAllCities()
+  const currentCity = getCurrentCity(city, cities)
   const { tomorrowWeather } = await getForecastData(city, countryCode)
   const date = new Date(tomorrowWeather.date)
 
@@ -84,7 +78,9 @@ export default async function CityPage({ params }: CityPageProps) {
       <div className="space-y-4">
         <h1 className="mb-4 text-center font-heading text-base font-bold capitalize tracking-wide md:text-lg">
           Tomorrow Weather Forecast in{' '}
-          <span className="font-black">{deslugify(city)}</span>
+          <span className="font-black normal-case">
+            {getCityName(currentCity)}
+          </span>
         </h1>
         <div className="text-2xl font-black">
           {date && (
