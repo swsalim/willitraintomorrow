@@ -19,6 +19,10 @@ export const conditions: Condition[] = [
     icon: Sun,
   },
   {
+    day: 'Clear',
+    icon: Sun,
+  },
+  {
     day: 'Partly Cloudy',
     icon: CloudSun,
   },
@@ -70,14 +74,14 @@ export const conditions: Condition[] = [
   //   day: 'Freezing fog',
   //   icon: 260,
   // },
-  // {
-  //   day: 'Patchy light drizzle',
-  //   icon: 263,
-  // },
-  // {
-  //   day: 'Light drizzle',
-  //   icon: 266,
-  // },
+  {
+    day: 'Patchy light drizzle',
+    icon: CloudRain,
+  },
+  {
+    day: 'Light drizzle',
+    icon: CloudRain,
+  },
   // {
   //   day: 'Freezing drizzle',
   //   icon: 281,
@@ -86,14 +90,14 @@ export const conditions: Condition[] = [
   //   day: 'Heavy freezing drizzle',
   //   icon: 284,
   // },
-  // {
-  //   day: 'Patchy light rain',
-  //   icon: 293,
-  // },
-  // {
-  //   day: 'Light rain',
-  //   icon: 296,
-  // },
+  {
+    day: 'Patchy light rain',
+    icon: CloudRain,
+  },
+  {
+    day: 'Light rain',
+    icon: CloudRain,
+  },
   // {
   //   day: 'Moderate rain at times',
   //   icon: 299,
@@ -154,10 +158,10 @@ export const conditions: Condition[] = [
   //   day: 'Ice pellets',
   //   icon: 350,
   // },
-  // {
-  //   day: 'Light rain shower',
-  //   icon: 353,
-  // },
+  {
+    day: 'Light rain shower',
+    icon: CloudRain,
+  },
   // {
   //   day: 'Moderate or heavy rain shower',
   //   icon: 356,

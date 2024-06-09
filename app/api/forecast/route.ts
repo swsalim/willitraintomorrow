@@ -15,7 +15,6 @@ export async function GET(request: NextRequest) {
     const weatherData = await weatherResponse.json()
 
     delete weatherData.forecast?.forecastday[1].astro
-    delete weatherData.forecast?.forecastday[1].hour
 
     // Return the weather forecast data to the client
     if (weatherData) {

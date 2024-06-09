@@ -16,6 +16,7 @@ import { CalendarDaysIcon } from 'lucide-react'
 import { getForecastData } from '@/lib/helpers'
 import ImageKit from '@/components/ImageKit'
 import { TemperatureWidget } from '@/components/TemperatureWidget'
+import { TemperatureWidgetMini } from '@/components/TemperatureWidgetMini'
 
 export const revalidate = 3600
 
@@ -37,10 +38,6 @@ export async function generateMetadata({ params }: CityPageProps) {
   const cities: City[] = getAllCities()
 
   const currentCity = getCurrentCity(city, cities)
-
-  // console.log(`city`)
-  // console.log(city, deslugify(city))
-  // console.log(currentCity)
 
   return constructMetadata({
     title: `Tomorrow Weather in ${getCityName(currentCity)}, ${currentCity?.country} - Will It Rain?`,
@@ -76,13 +73,13 @@ export default async function CityPage({ params }: CityPageProps) {
         </Link>
       </div>
       <div className="space-y-4">
-        <h1 className="mb-4 text-center font-heading text-base font-bold capitalize tracking-wide md:text-lg">
+        <h1 className="mb-4 text-center font-heading text-base font-medium capitalize tracking-wide md:text-lg">
           Tomorrow Weather Forecast in{' '}
           <span className="font-black normal-case">
             {getCityName(currentCity)}
           </span>
         </h1>
-        <div className="text-2xl font-black">
+        <div className="text-xl font-bold">
           {date && (
             <span className="flex items-center justify-center gap-x-2">
               <CalendarDaysIcon className="size-6" /> {getDateTime(date)}
@@ -104,6 +101,27 @@ export default async function CityPage({ params }: CityPageProps) {
               min: tomorrowWeather.day.mintemp_f,
             }}
           />
+        )}
+        {tomorrowWeather?.hour.length > 0 && (
+          <div>
+            <div className="mt-16 flex flex-row flex-wrap gap-4">
+              {tomorrowWeather?.hour.map((hourlyWeather: any) => {
+                return (
+                  <div
+                    className="w-36 min-w-36 flex-1"
+                    key={hourlyWeather.time.split(' ')[1]}
+                  >
+                    <TemperatureWidgetMini
+                      hour={hourlyWeather.time.split(' ')[1]}
+                      condition={hourlyWeather.condition.text}
+                      tempC={hourlyWeather.temp_c}
+                      tempF={hourlyWeather.temp_f}
+                    />
+                  </div>
+                )
+              })}
+            </div>
+          </div>
         )}
       </div>
     </>
