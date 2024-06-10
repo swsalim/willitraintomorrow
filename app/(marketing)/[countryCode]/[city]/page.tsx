@@ -102,7 +102,7 @@ export default async function CityPage({ params }: CityPageProps) {
             }}
           />
         )}
-        {tomorrowWeather?.hour.length > 0 && (
+        {tomorrowWeather?.hour?.length > 0 && (
           <div>
             <div className="mt-16 flex flex-row flex-wrap gap-4">
               {tomorrowWeather?.hour.map((hourlyWeather: any) => {
