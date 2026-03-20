@@ -16,10 +16,10 @@ export const config = {
 }
 
 export async function middleware(req: NextRequest) {
-  const { nextUrl: url, geo } = req
-  const country = geo?.country || 'US'
-  const city = geo?.city || 'San Francisco'
-  const region = geo?.region || 'CA'
+  const { nextUrl: url } = req
+  const country = req.headers.get('x-vercel-ip-country') || 'US'
+  const city = req.headers.get('x-vercel-ip-city') || 'San Francisco'
+  const region = req.headers.get('x-vercel-ip-country-region') || 'CA'
   const temperature = req.cookies.get('tempScale')?.value
 
   const countryInfo = COUNTRIES.find((x) => x.cca2 === country)

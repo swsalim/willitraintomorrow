@@ -1,3 +1,5 @@
+import type { NextConfig } from 'next'
+
 const redirectList = [
   {
     source: '/get/simpleanalytics',
@@ -5,12 +7,7 @@ const redirectList = [
   },
 ]
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    serverMinification: false,
-  },
-  reactStrictMode: true,
+const nextConfig: NextConfig = {
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
@@ -18,6 +15,8 @@ const nextConfig = {
       { protocol: 'https', hostname: 'ik.imagekit.io', port: '' },
       { protocol: 'https', hostname: 'cdn.weatherapi.com', port: '' },
     ],
+    deviceSizes: [200, 350, 600, 900, 1200, 1800],
+    imageSizes: [16, 32, 48, 64, 128, 256, 384],
     formats: ['image/avif', 'image/webp'],
   },
   logging: {
@@ -30,22 +29,20 @@ const nextConfig = {
       source,
       destination,
       permanent: true,
-      statusCode: 301,
     }))
   },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      use: ['@svgr/webpack'],
-    })
-
-    config.infrastructureLogging = {
-      level: 'error',
-    }
-    // Important: return the modified config
-    // https://nextjs.org/docs/messages/undefined-webpack-config
-    return config
+  turbopack: {
+    rules: {
+      // Example: if you had a webpack SVG rule
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+    resolveAlias: {
+      // migrate any webpack resolve.alias entries here
+    },
   },
 }
 
-module.exports = nextConfig
+export default nextConfig

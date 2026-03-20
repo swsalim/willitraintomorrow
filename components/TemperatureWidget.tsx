@@ -1,9 +1,10 @@
 import { cookies } from 'next/headers'
 import { setTempScale } from '@/actions/setTempScale'
 import { TemperatureForecast } from '@/types'
-import { cn, conditions } from '@/utils'
+import { conditions } from '@/utils'
 
-import { Umbrella, UmbrellaOff } from '@/components/icons'
+import { cn } from '@/lib/utils'
+import { Cloud, Umbrella, UmbrellaOff } from '@/components/icons'
 
 interface TemperatureProps {
   chanceOfRain: number
@@ -12,21 +13,41 @@ interface TemperatureProps {
   condition: string
 }
 
-export function TemperatureWidget({
+export async function TemperatureWidget({
   chanceOfRain,
   tempC,
   tempF,
   condition,
 }: TemperatureProps) {
-  const tempScale = cookies().get('tempScale')?.value || 'C'
+  const cookieStore = await cookies()
+  const tempScale = cookieStore.get('tempScale')?.value || 'C'
   const degreeTempScale = `°${tempScale}`
   const currentTemp = tempScale === 'C' ? tempC : tempF
 
-  const weatherCondition = conditions.filter(
-    (cond) => cond.day.trim().toLowerCase() === condition.trim().toLowerCase()
+  const normalize = (s: string) =>
+    s
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, ' ')
+      .replace(/[^\w\s-]/g, '')
+
+  const normalizedCondition = normalize(condition)
+
+  const exactMatch = conditions.find(
+    (cond) => normalize(cond.day) === normalizedCondition
   )
 
-  const Icon = weatherCondition[0]?.icon || undefined
+  // Fallback for minor API formatting differences or “close” conditions.
+  const fuzzyMatch =
+    exactMatch ||
+    conditions.find((cond) => {
+      const day = normalize(cond.day)
+      return (
+        normalizedCondition.includes(day) || day.includes(normalizedCondition)
+      )
+    })
+
+  const Icon = fuzzyMatch?.icon || Cloud
 
   return (
     <>

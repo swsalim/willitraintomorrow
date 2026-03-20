@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers'
 import { conditions } from '@/utils'
+import { Cloud } from '@/components/icons'
 
 interface TemperatureProps {
   hour: string
@@ -8,21 +9,40 @@ interface TemperatureProps {
   condition: string
 }
 
-export function TemperatureWidgetMini({
+export async function TemperatureWidgetMini({
   hour,
   tempC,
   tempF,
   condition,
 }: TemperatureProps) {
-  const tempScale = cookies().get('tempScale')?.value || 'C'
+  const cookieStore = await cookies()
+  const tempScale = cookieStore.get('tempScale')?.value || 'C'
   const degreeTempScale = `°${tempScale}`
   const currentTemp = tempScale === 'C' ? tempC : tempF
 
-  const weatherCondition = conditions.filter(
-    (cond) => cond.day.trim().toLowerCase() === condition.trim().toLowerCase()
+  const normalize = (s: string) =>
+    s
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, ' ')
+      .replace(/[^\w\s-]/g, '')
+
+  const normalizedCondition = normalize(condition)
+
+  const exactMatch = conditions.find(
+    (cond) => normalize(cond.day) === normalizedCondition
   )
 
-  const Icon = weatherCondition[0]?.icon || undefined
+  const fuzzyMatch =
+    exactMatch ||
+    conditions.find((cond) => {
+      const day = normalize(cond.day)
+      return (
+        normalizedCondition.includes(day) || day.includes(normalizedCondition)
+      )
+    })
+
+  const Icon = fuzzyMatch?.icon || Cloud
 
   return (
     <>

@@ -46,7 +46,7 @@ export type SiteConfig = {
   title: string
   description: string
   siteName: string
-  url: URL
+  url: string
   openGraph: {
     image: string
     imageAlt: string

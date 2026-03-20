@@ -1,6 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-display: 'Petrona', serif;
+  --font-sans: 'Figtree', sans-serif;
+}
 
 :root {
   --background: 201deg 100% 87%;
@@ -15,30 +21,4 @@ body,
   margin: 0;
   width: 100%;
   height: 100%;
-}
-
-.full-bleed {
-  position: relative;
-  width: calc(100% + 4rem);
-  margin-left: -2rem;
-  margin-right: -2rem;
-  border-radius: 0;
-  overflow: hidden;
-}
-
-@media (min-width: 768px) {
-  .full-bleed {
-    width: calc(100% + 6rem);
-    margin-left: -3rem;
-    margin-right: -3rem;
-    border-radius: 12px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .full-bleed {
-    width: calc(100% + 8rem);
-    margin-left: -4rem;
-    margin-right: -4rem;
-  }
 }

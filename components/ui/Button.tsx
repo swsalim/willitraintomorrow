@@ -1,11 +1,13 @@
 import * as React from 'react'
-import { cn } from '@/utils'
 import { Slot } from '@radix-ui/react-slot'
 import { cva } from 'class-variance-authority'
 import type { VariantProps } from 'class-variance-authority'
 
+import { cn } from '@/lib/utils'
+
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   /** Use the asChild prop to compose Radix's functionality onto alternative element types or your own React components. */
   asChild?: boolean

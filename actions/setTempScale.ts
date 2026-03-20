@@ -9,5 +9,6 @@ export async function setTempScale(data: FormData) {
   const temperature = data.get('tempScale') as string
   // const temperature = formData.get('temperature')
 
-  cookies().set('tempScale', temperature)
+  const cookieStore = await cookies()
+  cookieStore.set('tempScale', temperature)
 }

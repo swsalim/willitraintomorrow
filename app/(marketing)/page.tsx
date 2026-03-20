@@ -3,7 +3,9 @@ import { getDateTime } from '@/utils'
 import { CalendarDaysIcon } from 'lucide-react'
 
 import { siteConfig } from '@/config/site'
+import { JsonLd } from '@/components/JsonLd'
 import { getForecastData } from '@/lib/helpers'
+import { absoluteUrl } from '@/lib/utils'
 import ImageKit from '@/components/ImageKit'
 import { TemperatureWidget } from '@/components/TemperatureWidget'
 import { TemperatureWidgetMini } from '@/components/TemperatureWidgetMini'
@@ -11,30 +13,59 @@ import { TemperatureWidgetMini } from '@/components/TemperatureWidgetMini'
 export const revalidate = 3600
 
 interface searchParamsProps {
-  searchParams: {
+  searchParams: Promise<{
     country: string
     city: string
     languages: string
-  }
+  }>
 }
 
 export const metadata: Metadata = {
   title: siteConfig.title,
+  description: siteConfig.description,
 }
 
-export default async function Home({
-  searchParams: { country, city },
-}: searchParamsProps) {
+export default async function Home({ searchParams }: searchParamsProps) {
+  const { country, city } = await searchParams
   const { tomorrowWeather } = await getForecastData(city, country)
   const date = new Date(tomorrowWeather.date)
+  const pageUrl = absoluteUrl('/')
 
   return (
     <>
+      <JsonLd
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: siteConfig.title,
+          description: siteConfig.description,
+          url: pageUrl,
+          isPartOf: {
+            '@type': 'WebSite',
+            name: siteConfig.siteName,
+            url: pageUrl,
+          },
+        }}
+      />
+      <JsonLd
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: pageUrl,
+            },
+          ],
+        }}
+      />
       <div className="mx-auto mb-4 size-20 drop-shadow-md">
         <ImageKit src="logo-circle.png" alt="Will It Rain Tomorrow?" />
       </div>
       <div className="space-y-4">
-        <h1 className="mb-4 text-center font-heading text-base font-medium capitalize tracking-wide md:text-lg">
+        <h1 className="font-display mb-4 text-center text-base font-medium tracking-wide capitalize md:text-lg">
           Tomorrow Weather Forecast in{' '}
           <span className="font-black">{city}</span>
         </h1>

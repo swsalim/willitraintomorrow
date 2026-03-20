@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'Will It Rain Tomorrow',
     short_name: 'WillItRainTomorrow',
     description:
-      'Tomorrow’s Forecast, Today’s Advantage - Plan Your Day Right, Come Rain or Shine',
+      'Tomorrow’s weather forecast and rain chances by city. Plan your day—come rain or shine.',
     start_url: '/',
     display: 'standalone',
     background_color: '#fff',

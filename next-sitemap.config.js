@@ -17,7 +17,7 @@ const exclude = [
 
 const config = {
   siteUrl: 'https://www.willitraintomorrow.com/',
-  generateRobotsTxt: true, // (optional)
+  generateRobotsTxt: true,
   generateIndexSitemap: true,
   sitemapSize: 7000,
   exclude,

@@ -9,22 +9,23 @@ import {
   getCityName,
   getCurrentCity,
   getDateTime,
-  slugify,
 } from '@/utils'
 import { CalendarDaysIcon } from 'lucide-react'
 
 import { getForecastData } from '@/lib/helpers'
+import { slugify, absoluteUrl } from '@/lib/utils'
 import ImageKit from '@/components/ImageKit'
+import { JsonLd } from '@/components/JsonLd'
 import { TemperatureWidget } from '@/components/TemperatureWidget'
 import { TemperatureWidgetMini } from '@/components/TemperatureWidgetMini'
 
 export const revalidate = 3600
 
 interface CityPageProps {
-  params: {
+  params: Promise<{
     city: string
     countryCode: string
-  }
+  }>
 }
 
 function getCombinedCities() {
@@ -34,15 +35,17 @@ function getCombinedCities() {
 }
 
 export async function generateMetadata({ params }: CityPageProps) {
-  const { city, countryCode } = params
+  const { city, countryCode } = await params
   const cities: City[] = getAllCities()
 
   const currentCity = getCurrentCity(city, cities)
+  const countryLabel = currentCity?.country ?? countryCode
+  const cityLabel = getCityName(currentCity)
 
   return constructMetadata({
-    title: `Tomorrow Weather in ${getCityName(currentCity)}, ${currentCity?.country} - Will It Rain?`,
-    description: `Get the latest on tomorrow weather forecast in ${getCityName(currentCity)}, ${currentCity?.country}. Precise rain forecast to help you decide: umbrella or sunglasses?`,
-    image: `/api/og?title=Tomorrow Weather Forecast in ${getCityName(currentCity)}, ${currentCity?.country}`,
+    title: `Will It Rain Tomorrow in ${cityLabel}, ${countryLabel}`,
+    description: `Tomorrow’s weather forecast for ${cityLabel}, ${countryLabel}, including rain chance and temperatures. Plan ahead—umbrella or sunglasses?`,
+    image: `/api/og?title=Will It Rain Tomorrow in ${cityLabel}, ${countryLabel}`,
     alternates: {
       canonical: `/${countryCode}/${city}`,
     },
@@ -59,21 +62,61 @@ export async function generateStaticParams() {
 }
 
 export default async function CityPage({ params }: CityPageProps) {
-  const { city, countryCode } = params
+  const { city, countryCode } = await params
   const cities: City[] = getAllCities()
   const currentCity = getCurrentCity(city, cities)
   const { tomorrowWeather } = await getForecastData(city, countryCode)
   const date = new Date(tomorrowWeather.date)
 
+  const countryLabel = currentCity?.country ?? countryCode
+  const cityLabel = getCityName(currentCity as City)
+  const pageUrl = absoluteUrl(`/${countryCode}/${city}`)
+  const pageTitle = `Will It Rain Tomorrow in ${cityLabel}, ${countryLabel}`
+  const pageDescription = `Tomorrow’s weather forecast for ${cityLabel}, ${countryLabel}, including rain chance and temperatures. Plan ahead—umbrella or sunglasses?`
+
   return (
     <>
+      <JsonLd
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: pageTitle,
+          description: pageDescription,
+          url: pageUrl,
+          isPartOf: {
+            '@type': 'WebSite',
+            name: 'Will It Rain Tomorrow',
+            url: absoluteUrl('/'),
+          },
+        }}
+      />
+      <JsonLd
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: absoluteUrl('/'),
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: cityLabel,
+              item: pageUrl,
+            },
+          ],
+        }}
+      />
       <div className="mx-auto mb-4 size-20 drop-shadow-md">
         <Link href="/" title="Back to Home">
           <ImageKit src="logo-circle.png" alt="Will It Rain Tomorrow?" />
         </Link>
       </div>
       <div className="space-y-4">
-        <h1 className="mb-4 text-center font-heading text-base font-medium capitalize tracking-wide md:text-lg">
+        <h1 className="font-display mb-4 text-center text-base font-semibold tracking-wide capitalize md:text-lg">
           Tomorrow Weather Forecast in{' '}
           <span className="font-black normal-case">
             {getCityName(currentCity)}

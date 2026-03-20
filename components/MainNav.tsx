@@ -3,11 +3,11 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useSelectedLayoutSegment } from 'next/navigation'
-import { cn } from '@/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { MainNavItem } from 'types'
 import { siteConfig } from '@/config/site'
+import { cn } from '@/lib/utils'
 import Logo from '@/components/Logo'
 
 interface MainNavProps {
@@ -52,7 +52,7 @@ export function MainNav({ items }: MainNavProps) {
           }}
         >
           <Logo />
-          <span className="hidden font-heading tracking-wide text-gray-900 sm:inline-block">
+          <span className="font-display hidden tracking-wide text-gray-900 sm:inline-block">
             {siteConfig.siteName}
           </span>
         </motion.div>
@@ -64,7 +64,7 @@ export function MainNav({ items }: MainNavProps) {
               key={index}
               href={item.disabled ? '#' : item.href}
               className={cn(
-                'relative px-4 py-2 font-heading text-base tracking-wide transition-colors hover:text-gray-900/80 sm:text-base',
+                'font-display relative px-4 py-2 text-base tracking-wide transition-colors hover:text-gray-900/80 sm:text-base',
                 item.href.startsWith(`/${segment}`)
                   ? 'text-gray-900'
                   : 'text-gray-900/70',
@@ -76,7 +76,7 @@ export function MainNav({ items }: MainNavProps) {
               <AnimatePresence>
                 {hoveredIndex === index && (
                   <motion.span
-                    className="bg-slate-100 absolute inset-0 rounded-lg"
+                    className="absolute inset-0 rounded-lg bg-slate-100"
                     layoutId="hoverBackgroundID"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1, transition: { duration: 0.15 } }}

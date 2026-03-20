@@ -1,23 +1,23 @@
 import type { Metadata } from 'next'
-import { DM_Sans, Playfair_Display } from 'next/font/google'
-import Image from 'next/image'
-import Script from 'next/script'
-import { cn } from '@/utils'
+import { Figtree, Petrona } from 'next/font/google'
+
+import { cn } from '@/lib/utils'
+import { absoluteUrl } from '@/lib/utils'
 
 import '@/styles/globals.css'
 
 import { constructMetadata } from '@/utils'
+import { JsonLd } from '@/components/JsonLd'
+import { siteConfig } from '@/config/site'
 
-const fontHeading = Playfair_Display({
+const figtree = Figtree({
+  variable: '--font-figtree',
   subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-heading',
 })
 
-const fontBody = DM_Sans({
+const petrona = Petrona({
+  variable: '--font-petrona',
   subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-body',
 })
 
 // export const metadata: Metadata = {
@@ -75,51 +75,61 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const baseUrl = absoluteUrl('/')
+
   return (
     <html
       lang="en"
-      className={cn('antialiased', fontBody.variable, fontHeading.variable)}
+      className={cn(
+        'font-sans antialiased',
+        figtree.variable,
+        petrona.variable
+      )}
     >
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link rel="preconnect" href="//ik.imagekit.io" />
-        <link rel="preconnect" href="//stats.willitraintomorrow.com" />
-        <link rel="dns-prefetch" href="//stats.willitraintomorrow.com" />
         <link rel="dns-prefetch" href="//ik.imagekit.io" />
-        <Script
-          id="simple-analytics"
-          dangerouslySetInnerHTML={{
-            __html: `window.sa_event=window.sa_event||function(){var a=[].slice.call(arguments);window.sa_event.q?window.sa_event.q.push(a):window.sa_event.q=[a]};`,
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+
+        <JsonLd
+          schema={{
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: siteConfig.author.name,
+            url: siteConfig.author.url,
           }}
         />
-        <Script
-          src="https://beamanalytics.b-cdn.net/beam.min.js"
-          data-token="c2fbac7b-0b09-48f0-b925-7a5a61de2a3b"
-          async
+        <JsonLd
+          schema={{
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: siteConfig.siteName,
+            url: baseUrl,
+            publisher: {
+              '@type': 'Organization',
+              name: siteConfig.author.name,
+              url: siteConfig.author.url,
+            },
+          }}
         />
+        <script
+          async
+          src="https://cdn.seline.com/seline.js"
+          data-token="8ae9eccbaff1765"
+        ></script>
       </head>
       <body
         className="flex min-h-screen flex-col bg-amber-100 font-sans"
         suppressHydrationWarning
       >
         {children}
-        <script
-          async
-          src="https://stats.willitraintomorrow.com/latest.js"
-        ></script>
-        <script
-          async
-          src="https://stats.willitraintomorrow.com/auto-events.js"
-        ></script>
-        <noscript>
-          <Image
-            src="https://stats.willitraintomorrow.com/noscript.gif?collect-dnt=true"
-            alt=""
-            referrerPolicy="no-referrer-when-downgrade"
-            width="1"
-            height="1"
-            unoptimized
-          />
-        </noscript>
       </body>
     </html>
   )

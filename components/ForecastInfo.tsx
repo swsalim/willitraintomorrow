@@ -11,7 +11,7 @@ interface forecastProp {
 export function ForecastInfo({ date, forecast, city, country }: forecastProp) {
   return (
     <div className="space-y-4">
-      <h1 className="mb-8 font-heading text-4xl font-black capitalize md:text-7xl">
+      <h1 className="font-display mb-8 text-4xl font-black capitalize md:text-7xl">
         Tomorrow's Weather Forecast
       </h1>
       <div className="text-xl font-medium">

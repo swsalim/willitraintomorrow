@@ -1,11 +1,12 @@
 import { SiteConfig } from 'types'
+import { absoluteUrl } from '@/lib/utils'
 
 export const siteConfig: SiteConfig = {
-  title: 'Forecasting Sunshine and Showers for You',
+  title: 'Will It Rain Tomorrow? Weather Forecast',
   description:
-    'Tomorrow’s Weather Forecast, Today’s Advantage - Plan Your Day Right, Come Rain or Shine',
+    'Tomorrow’s weather forecast and rain chances by city. Plan your day—come rain or shine.',
   siteName: 'Will It Rain Tomorrow',
-  url: new URL(`${process.env.NEXT_PUBLIC_BASE_URL}`),
+  url: absoluteUrl('/'),
   author: {
     name: 'Yuyu',
     url: 'https://www.yuurrific.com',
