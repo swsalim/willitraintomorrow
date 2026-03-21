@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
 import { Figtree, Petrona } from 'next/font/google'
 
-import { cn } from '@/lib/utils'
-import { absoluteUrl } from '@/lib/utils'
+import { absoluteUrl, cn } from '@/lib/utils'
 
 import '@/styles/globals.css'
 
 import { constructMetadata } from '@/utils'
-import { JsonLd } from '@/components/JsonLd'
+
 import { siteConfig } from '@/config/site'
+import { JsonLd } from '@/components/JsonLd'
 
 const figtree = Figtree({
   variable: '--font-figtree',
@@ -126,7 +126,11 @@ export default function RootLayout({
         ></script>
       </head>
       <body
-        className="flex min-h-screen flex-col bg-amber-100 font-sans"
+        className={cn(
+          'flex min-h-screen flex-col bg-amber-100 font-sans antialiased',
+          figtree.variable,
+          petrona.variable
+        )}
         suppressHydrationWarning
       >
         {children}

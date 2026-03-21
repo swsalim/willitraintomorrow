@@ -1,5 +1,7 @@
 import { cookies } from 'next/headers'
 import { conditions } from '@/utils'
+
+import { cn } from '@/lib/utils'
 import { Cloud } from '@/components/icons'
 
 interface TemperatureProps {
@@ -7,6 +9,7 @@ interface TemperatureProps {
   tempC: string
   tempF: string
   condition: string
+  className?: string
 }
 
 export async function TemperatureWidgetMini({
@@ -14,6 +17,7 @@ export async function TemperatureWidgetMini({
   tempC,
   tempF,
   condition,
+  className,
 }: TemperatureProps) {
   const cookieStore = await cookies()
   const tempScale = cookieStore.get('tempScale')?.value || 'C'
@@ -45,17 +49,27 @@ export async function TemperatureWidgetMini({
   const Icon = fuzzyMatch?.icon || Cloud
 
   return (
-    <>
-      <div className="mx-auto flex max-w-2xl flex-col items-center gap-2 rounded-md bg-white p-4 shadow transition hover:shadow-md">
-        <div className="flex flex-col items-center">
-          <div className="mb-4 text-base font-semibold">{hour}</div>
-          {Icon && <Icon className="mb-2 size-10" />}
-          <div className="flex flex-row text-xl font-semibold">
-            {currentTemp} {degreeTempScale}
-          </div>
+    <div
+      className={cn(
+        'mx-auto flex max-w-2xl min-w-[132px] snap-start flex-col items-center gap-2 rounded-2xl border border-white/15 bg-white p-4 shadow-lg shadow-black/20 backdrop-blur-md transition',
+        className
+      )}
+    >
+      <div className="flex flex-col items-center">
+        <div className="mb-1 text-xs font-bold tracking-wider text-gray-700 uppercase">
+          {hour}
         </div>
-        <div className="text-sm font-medium text-gray-700">{condition}</div>
+        {Icon && (
+          <Icon className="mb-2 size-10 text-amber-100 drop-shadow-md" />
+        )}
+        <div className="font-display text-xl font-black text-gray-900 tabular-nums">
+          {currentTemp}
+          {degreeTempScale}
+        </div>
       </div>
-    </>
+      <div className="line-clamp-2 text-center text-sm leading-snug font-semibold text-gray-500">
+        {condition}
+      </div>
+    </div>
   )
 }

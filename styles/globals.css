@@ -4,14 +4,47 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-display: 'Petrona', serif;
-  --font-sans: 'Figtree', sans-serif;
+  --font-display: var(--font-petrona), 'Petrona', system-ui, sans-serif;
+  --font-sans: var(--font-figtree), 'Figtree', system-ui, sans-serif;
+  --animate-weather-kenburns: weather-kenburns 28s ease-in-out infinite
+    alternate;
+  --animate-gradient-shift: gradient-shift 12s ease-in-out infinite;
+  --animate-float-soft: float-soft 5s ease-in-out infinite;
+}
+
+@keyframes weather-kenburns {
+  from {
+    transform: scale(1.04) translate(0, 0);
+  }
+  to {
+    transform: scale(1.12) translate(-1.5%, -1%);
+  }
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.94;
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 :root {
-  --background: 201deg 100% 87%;
-  --primary: 201deg 100% 80%;
-  --foreground: 202deg 18% 12%;
+  --background: 222deg 47% 6%;
+  --primary: 263deg 70% 58%;
+  --foreground: 210deg 40% 98%;
 }
 
 html,
