@@ -4,54 +4,254 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-display: var(--font-petrona), 'Petrona', system-ui, sans-serif;
-  --font-sans: var(--font-figtree), 'Figtree', system-ui, sans-serif;
-  --animate-weather-kenburns: weather-kenburns 28s ease-in-out infinite
-    alternate;
-  --animate-gradient-shift: gradient-shift 12s ease-in-out infinite;
-  --animate-float-soft: float-soft 5s ease-in-out infinite;
+  --font-display: var(--font-gabarito), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-wirt-ink: #0f1419;
+  --color-wirt-paper: #f3f1ec;
+  --color-wirt-muted: #5c6570;
+  --color-wirt-line: color-mix(in oklab, var(--color-wirt-ink) 12%, transparent);
+  --color-wirt-accent: #2f6fed;
+
+  --animate-rain-fall: rain-fall 1.1s linear infinite;
+  --animate-rain-drop: rain-drop 1s linear infinite;
+  --animate-rain-splash: rain-splash 1.1s ease-out infinite;
+  --animate-cloud-drift: cloud-drift 48s ease-in-out infinite alternate;
+  --animate-sun-glow: sun-glow 8s ease-in-out infinite alternate;
+  --animate-storm-flash: storm-flash 7.5s ease-in-out infinite;
+  --animate-storm-bolt: storm-bolt 7.5s ease-in-out infinite;
+  --animate-rain-sheet: rain-sheet 0.55s linear infinite;
+  --animate-sun-spin: sun-spin 48s linear infinite;
+  --animate-snow-fall: snow-fall 18s linear infinite;
 }
 
-@keyframes weather-kenburns {
+@keyframes rain-fall {
   from {
-    transform: scale(1.04) translate(0, 0);
+    transform: translateY(-12%);
   }
   to {
-    transform: scale(1.12) translate(-1.5%, -1%);
+    transform: translateY(12%);
   }
 }
 
-@keyframes gradient-shift {
-  0%,
+@keyframes rain-sheet {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 22px 28px;
+  }
+}
+
+@keyframes rain-drop {
+  0% {
+    transform: translateY(0) rotate(14deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.9;
+  }
+  92% {
+    opacity: 0.65;
+  }
   100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.94;
+    transform: translateY(115vh) rotate(14deg);
+    opacity: 0;
   }
 }
 
-@keyframes float-soft {
-  0%,
+@keyframes rain-splash {
+  0% {
+    transform: translateX(-50%) scaleX(0.3) scaleY(0.3);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.7;
+  }
   100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
+    transform: translateX(-50%) scaleX(1.6) scaleY(0.75);
+    opacity: 0;
   }
 }
 
-:root {
-  --background: 222deg 47% 6%;
-  --primary: 263deg 70% 58%;
-  --foreground: 210deg 40% 98%;
+@keyframes cloud-drift {
+  from {
+    transform: translateX(-4%) translateY(0);
+  }
+  to {
+    transform: translateX(5%) translateY(10px);
+  }
+}
+
+@keyframes sun-glow {
+  from {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes sun-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes storm-flash {
+  0%,
+  88%,
+  100% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0.55;
+  }
+  92% {
+    opacity: 0.08;
+  }
+  94% {
+    opacity: 0.35;
+  }
+  96% {
+    opacity: 0;
+  }
+}
+
+@keyframes storm-bolt {
+  0%,
+  88%,
+  100% {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.96);
+  }
+  90% {
+    opacity: 0.95;
+    transform: translateY(0) scale(1);
+  }
+  93% {
+    opacity: 0.15;
+  }
+  95% {
+    opacity: 0.7;
+  }
+  97% {
+    opacity: 0;
+  }
+}
+
+@keyframes snow-fall {
+  from {
+    background-position: 0 0, 40px 20px, 10px 60px, 80px 0;
+  }
+  to {
+    background-position: 0 180px, 40px 260px, 10px 260px, 80px 160px;
+  }
+}
+
+/*
+  All product pages use a light paper base.
+  Atmosphere only shifts tint / accent / weather effects.
+*/
+
+:root,
+[data-theme='light'] {
+  --wirt-bg: #f3f1ec;
+  --wirt-fg: #0f1419;
+  --wirt-muted: #5c6570;
+  --wirt-accent: #2f6fed;
+  --wirt-surface: color-mix(in oklab, white 70%, transparent);
+  --wirt-verdict: #0f1419;
+  --wirt-glow: color-mix(in oklab, #9bb7e8 30%, transparent);
+}
+
+/* Light-page weather tints (never invert to dark) */
+[data-theme='light'][data-atmosphere='clear'] {
+  --wirt-bg: #f7f3ea;
+  --wirt-fg: #1a1f24;
+  --wirt-muted: #6a6256;
+  --wirt-accent: #c47a22;
+  --wirt-verdict: #1a1f24;
+  --wirt-glow: color-mix(in oklab, #ffd27a 45%, transparent);
+}
+
+[data-theme='light'][data-atmosphere='cloud'] {
+  --wirt-bg: #eef1f4;
+  --wirt-fg: #1c232b;
+  --wirt-muted: #5f6b78;
+  --wirt-accent: #4a5d73;
+  --wirt-verdict: #1c232b;
+  --wirt-glow: color-mix(in oklab, #9aabbd 35%, transparent);
+}
+
+[data-theme='light'][data-atmosphere='rain'] {
+  --wirt-bg: #e8eef5;
+  --wirt-fg: #142033;
+  --wirt-muted: #5a6b80;
+  --wirt-accent: #2f6fed;
+  --wirt-verdict: #142033;
+  --wirt-glow: color-mix(in oklab, #7aa7e8 35%, transparent);
+}
+
+[data-theme='light'][data-atmosphere='storm'] {
+  --wirt-bg: #e4e8f0;
+  --wirt-fg: #121826;
+  --wirt-muted: #556274;
+  --wirt-accent: #3d5ccc;
+  --wirt-verdict: #121826;
+  --wirt-glow: color-mix(in oklab, #8b9dff 30%, transparent);
+}
+
+[data-theme='light'][data-atmosphere='snow'] {
+  --wirt-bg: #f2f6f9;
+  --wirt-fg: #1b2430;
+  --wirt-muted: #667788;
+  --wirt-accent: #3d7ea6;
+  --wirt-verdict: #1b2430;
+  --wirt-glow: color-mix(in oklab, #cfe4f2 50%, transparent);
+}
+
+[data-theme='light'][data-atmosphere='fog'] {
+  --wirt-bg: #eceef1;
+  --wirt-fg: #222831;
+  --wirt-muted: #66707c;
+  --wirt-accent: #5a6673;
+  --wirt-verdict: #222831;
+  --wirt-glow: color-mix(in oklab, #b8c0c8 40%, transparent);
 }
 
 html,
-body,
-#__next {
+body {
   padding: 0;
   margin: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  background: var(--wirt-bg);
+  color: var(--wirt-fg);
+  transition:
+    background-color 0.6s ease,
+    color 0.6s ease;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--wirt-accent) 35%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

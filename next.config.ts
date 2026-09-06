@@ -33,18 +33,6 @@ const nextConfig: NextConfig = {
       permanent: true,
     }))
   },
-  turbopack: {
-    rules: {
-      // Example: if you had a webpack SVG rule
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
-    resolveAlias: {
-      // migrate any webpack resolve.alias entries here
-    },
-  },
 }
 
 export default nextConfig

@@ -8,10 +8,9 @@ import { Menu, X } from 'lucide-react'
 
 import { MainNavItem } from 'types'
 import { marketingNavLinks } from '@/config/marketing-nav'
-import { siteConfig } from '@/config/site'
-import { cn } from '@/lib/utils'
+import { BrandMark } from '@/components/BrandMark'
 import { CitySearch } from '@/components/CitySearch'
-import ImageKit from '@/components/ImageKit'
+import { cn } from '@/lib/utils'
 
 function navItemActive(href: string, pathname: string | null) {
   if (!pathname) return false
@@ -54,51 +53,7 @@ export function MainNav({ items }: MainNavProps) {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/90 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:h-16 sm:gap-4 sm:px-6 lg:px-8">
-        <Link
-          href="/"
-          className="flex min-w-0 shrink-0 items-center gap-2.5"
-          onClick={() => setMobileOpen(false)}
-        >
-          <motion.div
-            className="flex min-w-0 items-center gap-2.5"
-            initial={{ opacity: 0, y: '0.5rem' }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              transition: {
-                type: 'spring',
-                stiffness: 200,
-                damping: 40,
-                duration: 0.15,
-                restDelta: 0.01,
-              },
-            }}
-            exit={{
-              opacity: 0,
-              transition: {
-                type: 'spring',
-                stiffness: 200,
-                damping: 40,
-                duration: 0.15,
-                delay: 0.2,
-                restDelta: 0.01,
-              },
-            }}
-          >
-            <span className="relative size-9 shrink-0 overflow-hidden rounded-full ring-1 ring-white/25">
-              <ImageKit
-                src="logo-circle.png"
-                alt={siteConfig.siteName}
-                width={36}
-                height={36}
-                className="size-9 object-cover"
-              />
-            </span>
-            <span className="font-display sr-only truncate text-sm font-semibold tracking-tight text-white sm:text-base">
-              {siteConfig.siteName}
-            </span>
-          </motion.div>
-        </Link>
+        <BrandMark compact />
 
         <nav
           className="hidden items-center md:flex"

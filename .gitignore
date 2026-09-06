@@ -34,3 +34,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+/dist/
+.vinext/
+.wrangler/
+
+# env secrets (never commit)
+.env
+.env.*
+!.env.example

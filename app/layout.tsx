@@ -1,72 +1,25 @@
 import type { Metadata } from 'next'
-import { Figtree, Petrona } from 'next/font/google'
+import { Figtree, Gabarito } from 'next/font/google'
+import { GeistMono } from 'geist/font/mono'
 
 import { absoluteUrl, cn } from '@/lib/utils'
+import { constructMetadata } from '@/utils'
+import { siteConfig } from '@/config/site'
+import { JsonLd } from '@/components/JsonLd'
 
 import '@/styles/globals.css'
 
-import { constructMetadata } from '@/utils'
-
-import { siteConfig } from '@/config/site'
-import { JsonLd } from '@/components/JsonLd'
+const gabarito = Gabarito({
+  variable: '--font-gabarito',
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 const figtree = Figtree({
   variable: '--font-figtree',
   subsets: ['latin'],
+  display: 'swap',
 })
-
-const petrona = Petrona({
-  variable: '--font-petrona',
-  subsets: ['latin'],
-})
-
-// export const metadata: Metadata = {
-//   title: {
-//     default: siteConfig.title,
-//     template: `%s · ${siteConfig.siteName}`,
-//   },
-//   description: siteConfig.description,
-//   metadataBase: siteConfig.url,
-//   alternates: {
-//     canonical: '/',
-//   },
-//   authors: [
-//     {
-//       name: siteConfig.author.name,
-//       url: siteConfig.author.url,
-//     },
-//   ],
-//   openGraph: {
-//     title: siteConfig.title,
-//     description: siteConfig.description,
-//     url: siteConfig.url,
-//     images: [
-//       {
-//         url: siteConfig.openGraph.image,
-//         width: siteConfig.openGraph.width,
-//         height: siteConfig.openGraph.height,
-//         alt: siteConfig.openGraph.imageAlt,
-//       },
-//     ],
-//     locale: 'en_US',
-//     type: 'website',
-//   },
-//   icons: {
-//     icon: '/icons/favicon-32x32.png',
-//     shortcut: '/icons/apple-touch-icon.png',
-//     apple: '/icons/apple-touch-icon.png',
-//   },
-//   twitter: {
-//     card: 'summary_large_image',
-//     title: siteConfig.title,
-//     description: siteConfig.description,
-//     creator: siteConfig.creator,
-//     images: [siteConfig.openGraph.image],
-//   },
-//   robots: {
-//     index: true,
-//   },
-// }
 
 export const metadata: Metadata = constructMetadata()
 
@@ -82,22 +35,12 @@ export default function RootLayout({
       lang="en"
       className={cn(
         'font-sans antialiased',
+        gabarito.variable,
         figtree.variable,
-        petrona.variable
+        GeistMono.variable
       )}
     >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link rel="preconnect" href="//ik.imagekit.io" />
-        <link rel="dns-prefetch" href="//ik.imagekit.io" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-
         <JsonLd
           schema={{
             '@context': 'https://schema.org',
@@ -125,14 +68,7 @@ export default function RootLayout({
           data-token="8ae9eccbaff1765"
         ></script>
       </head>
-      <body
-        className={cn(
-          'flex min-h-screen flex-col bg-amber-100 font-sans antialiased',
-          figtree.variable,
-          petrona.variable
-        )}
-        suppressHydrationWarning
-      >
+      <body className={cn('min-h-screen font-sans antialiased')} suppressHydrationWarning>
         {children}
       </body>
     </html>

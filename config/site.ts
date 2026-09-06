@@ -2,9 +2,9 @@ import { SiteConfig } from 'types'
 import { absoluteUrl } from '@/lib/utils'
 
 export const siteConfig: SiteConfig = {
-  title: 'Will It Rain Tomorrow? Weather Forecast',
+  title: 'Will It Rain Tomorrow?',
   description:
-    'Tomorrow’s weather forecast and rain chances by city. Plan your day—come rain or shine.',
+    'One question. One answer. Find out if you need an umbrella tomorrow, and when rain is most likely.',
   siteName: 'Will It Rain Tomorrow',
   url: absoluteUrl('/'),
   author: {
@@ -13,7 +13,7 @@ export const siteConfig: SiteConfig = {
   },
   openGraph: {
     image: '/images/og-default.png',
-    imageAlt: 'Banner for willitraintomorrow.com',
+    imageAlt: 'Will It Rain Tomorrow - One question. One answer.',
     width: '1200',
     height: '630',
   },

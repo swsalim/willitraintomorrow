@@ -5,12 +5,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function absoluteUrl(input = '') {
-  return process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}${input}`
-    : process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}${input}`
-      : `${process.env.NEXT_PUBLIC_BASE_URL}${input}`
+export function absoluteUrl(path = '') {
+  return `${process.env.NEXT_PUBLIC_BASE_URL}${path}`
 }
 
 export function imageKitLoader({

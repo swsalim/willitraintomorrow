@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export const runtime = 'edge'
-
 export async function GET(request: NextRequest) {
   try {
     const allowedReferrer = new URL(process.env.NEXT_PUBLIC_BASE_URL!).origin
@@ -20,7 +18,7 @@ export async function GET(request: NextRequest) {
     const query = encodeURIComponent(`${city},${country}`)
 
     const weatherResponse = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=${process.env.NEXT_WEATHER_API_KEY}&q=${query}&days=2`
+      `https://api.weatherapi.com/v1/forecast.json?key=${process.env.NEXT_WEATHER_API_KEY}&q=${query}&days=2`
     )
 
     if (!weatherResponse.ok) {
